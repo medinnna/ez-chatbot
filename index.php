@@ -243,7 +243,7 @@ function ez_chatbot_settings_html() {
         <tr>
           <th scope="row">Imagen del chatbot</th>
           <td>
-            <img src="<?php echo esc_attr($image); ?>" class="ez_chatbot_image <?php echo ($image === '' ? 'hidden' : ''); ?>" alt="EZ Chatbot image" />
+            <img src="<?php echo esc_attr($image); ?>" class="ez_chatbot_image <?php echo (empty($image) ? 'hidden' : ''); ?>" alt="EZ Chatbot image" />
 
             <input type="hidden" class="ez_chatbot_image_upload" name="ez_chatbot_image" value="<?php echo esc_attr($image); ?>">
             <input type="button" class="ez_chatbot_image_select" value="Subir Imagen" />
