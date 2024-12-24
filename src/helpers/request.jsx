@@ -1,5 +1,5 @@
 export default async function request(messages, setMessages, baseURL) {
-  const url = new URL(baseURL + '/wp-json/chatbot-widget/v1/openai');
+  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/openai');
 
   const response = await fetch(url.toString(), {
     method: 'POST',

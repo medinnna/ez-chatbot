@@ -15,7 +15,7 @@ add_action('admin_menu', 'ez_chatbot_settings_page');
 add_action('wp_footer', 'ez_chatbot_root');
 
 function ez_chatbot_register_rest_route() {
-  register_rest_route('ez-chatbot-widget/v1', '/openai', array(
+  register_rest_route('ez-chatbot/v1', '/openai', array(
     'methods' => 'POST',
     'callback' => 'ez_chatbot_request',
     'permission_callback' => 'ez_chatbot_request_validator',
