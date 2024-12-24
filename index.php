@@ -17,8 +17,8 @@ add_action('wp_footer', 'ez_chatbot_root');
 function ez_chatbot_register_rest_route() {
   register_rest_route('ez-chatbot-widget/v1', '/openai', array(
     'methods' => 'POST',
-    'callback' => 'chatbot_request',
-    'permission_callback' => 'chatbot_request_validator',
+    'callback' => 'ez_chatbot_request',
+    'permission_callback' => 'ez_chatbot_request_validator',
   ));
 }
 
@@ -121,7 +121,7 @@ function ez_chatbot_settings_page() {
     'EZ Chatbot',
     'manage_options',
     'ez-chatbot-settings',
-    'ez-chatbot_settings_html'
+    'ez_chatbot_settings_html'
   );
 }
 
@@ -152,33 +152,33 @@ function ez_chatbot_get_api_key() {
 
 function ez_chatbot_settings_html() {
   if (isset($_POST['submit'])) {
-    $enabled = $_POST['chatbot_enabled'] === '1' ? true : false;
+    $enabled = $_POST['ez_chatbot_enabled'] === '1' ? true : false;
 
-    update_option('chatbot_enabled', $enabled);
-    update_option('chatbot_image', sanitize_text_field($_POST['chatbot_image']));
-    update_option('chatbot_name', sanitize_text_field($_POST['chatbot_name']));
-    update_option('chatbot_color', $_POST['chatbot_color']);
-    update_option('chatbot_system', sanitize_text_field($_POST['chatbot_system']));
-    update_option('chatbot_knowledge', sanitize_text_field($_POST['chatbot_knowledge']));
-    update_option('chatbot_welcome', sanitize_text_field($_POST['chatbot_welcome']));
+    update_option('ez_chatbot_enabled', $enabled);
+    update_option('ez_chatbot_image', sanitize_text_field($_POST['ez_chatbot_image']));
+    update_option('ez_chatbot_name', sanitize_text_field($_POST['ez_chatbot_name']));
+    update_option('ez_chatbot_color', $_POST['ez_chatbot_color']);
+    update_option('ez_chatbot_system', sanitize_text_field($_POST['ez_chatbot_system']));
+    update_option('ez_chatbot_knowledge', sanitize_text_field($_POST['ez_chatbot_knowledge']));
+    update_option('ez_chatbot_welcome', sanitize_text_field($_POST['ez_chatbot_welcome']));
 
-    if ($_POST['chatbot_api_key'] === '') {
-      update_option('chatbot_api_key', '');
+    if ($_POST['ez_chatbot_api_key'] === '') {
+      update_option('ez_chatbot_api_key', '');
     } else {
-      $api_key = sanitize_text_field($_POST['chatbot_api_key']);
+      $api_key = sanitize_text_field($_POST['ez_chatbot_api_key']);
 
-      chatbot_set_api_key($api_key);
+      ez_chatbot_set_api_key($api_key);
     }
   }
 
-  $enable = get_option('chatbot_enabled');
-  $image = get_option('chatbot_image');
-  $name = get_option('chatbot_name');
-  $color = get_option('chatbot_color');
-  $system = get_option('chatbot_system');
-  $welcome = get_option('chatbot_welcome');
-  $knowledge = get_option('chatbot_knowledge');
-  $api_key = chatbot_get_api_key();
+  $enable = get_option('ez_chatbot_enabled');
+  $image = get_option('ez_chatbot_image');
+  $name = get_option('ez_chatbot_name');
+  $color = get_option('ez_chatbot_color');
+  $system = get_option('ez_chatbot_system');
+  $welcome = get_option('ez_chatbot_welcome');
+  $knowledge = get_option('ez_chatbot_knowledge');
+  $api_key = ez_chatbot_get_api_key();
 ?>
   <style>
     input[type="text"],
