@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2024-12-24T10:50:39+00:00\n"
-"PO-Revision-Date: 2024-12-24 04:54-0600\n"
+"POT-Creation-Date: 2024-12-24T11:11:00+00:00\n"
+"PO-Revision-Date: 2024-12-24 05:11-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -38,6 +38,10 @@ msgstr ""
 #: index.php
 msgid "https://medina.dev"
 msgstr ""
+
+#: index.php:131
+msgid "Settings"
+msgstr "Configuración"
 
 #: pages/settings.php:43
 msgid "EZ Chatbot - Settings"

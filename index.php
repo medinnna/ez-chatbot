@@ -128,7 +128,7 @@ function ez_chatbot_links($links, $file) {
   }
 
   if ($file == $ez_chatbot) {
-    $settings_link = '<a href="' . admin_url('options-general.php?page=ez-chatbot-settings') . '">Configuración</a>';
+    $settings_link = '<a href="' . admin_url('options-general.php?page=ez-chatbot-settings') . '">' . __('Settings', 'ez-chatbot') . '</a>';
 
     array_unshift($links, $settings_link);
   }
