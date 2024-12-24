@@ -107,7 +107,7 @@ function ez_chatbot_links($links, $file) {
   }
 
   if ($file == $ez_chatbot) {
-    $settings_link = '<a href="' . admin_url('options-general.php?page=chatbot-settings') . '">Configuración</a>';
+    $settings_link = '<a href="' . admin_url('options-general.php?page=ez-chatbot-settings') . '">Configuración</a>';
 
     array_unshift($links, $settings_link);
   }
@@ -253,7 +253,7 @@ function ez_chatbot_settings_html() {
         <tr>
           <th scope="row">Nombre del chatbot</th>
           <td>
-            <input type="text" name="ez_chatbot_name" value="<?php echo esc_attr($name); ?>" placeholder="EZ Chatbot name" />
+            <input type="text" name="ez_chatbot_name" value="<?php echo (empty($name) ? 'Chatbot' : esc_attr($name)); ?>" placeholder="Chatbot" />
           </td>
         </tr>
 
@@ -267,7 +267,7 @@ function ez_chatbot_settings_html() {
         <tr>
           <th scope="row">Mensaje de bienvenida</th>
           <td>
-            <textarea rows="5" name="ez_chatbot_welcome"><?php echo esc_textarea($welcome); ?></textarea>
+            <textarea rows="5" name="ez_chatbot_welcome"><?php echo (empty($welcome) ? '¡Hola! Soy tu asistente virtual. ¿En qué te puedo ayudar?' : esc_textarea($welcome)); ?></textarea>
           </td>
         </tr>
 
