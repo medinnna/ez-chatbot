@@ -208,8 +208,8 @@ function ez_chatbot_settings_html() {
           multiple: false
         }).open().on('select', function(e) {
           const uploaded_image = image.state().get('selection').first();
-          const ez_chatbot_image = document.querySelector('.chatbot_image');
-          const ez_chatbot_image_upload = document.querySelector('.chatbot_image_upload');
+          const ez_chatbot_image = document.querySelector('.ez_chatbot_image');
+          const ez_chatbot_image_upload = document.querySelector('.ez_chatbot_image_upload');
 
           ez_chatbot_image.src = uploaded_image.toJSON().url;
           ez_chatbot_image.classList.remove("hidden");
