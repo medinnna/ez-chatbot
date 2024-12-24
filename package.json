@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && zip -r dist/ez-chatbot.zip dist index.php",
     "lint": "eslint .",
     "preview": "vite preview"
   },
