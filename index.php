@@ -2,17 +2,38 @@
 /*
 Plugin Name: EZ Chatbot
 Description: EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
+Text Domain: ez-chatbot
 Version: 1.0.0
 Author: Carlos Medina
 Author URI: https://medina.dev
 */
 
+add_action('init', 'ez_chatbot_languages');
+add_filter('load_textdomain_mofile', 'ez_chatbot_mofiles', 10, 2);
 add_action('rest_api_init', 'ez_chatbot_register_rest_route');
 add_action('wp_enqueue_scripts', 'ez_chatbot_enqueue_scripts');
 add_action('admin_enqueue_scripts', 'ez_chatbot_load_media');
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'ez_chatbot_links', 10, 2);
 add_action('admin_menu', 'ez_chatbot_settings_page');
 add_action('wp_footer', 'ez_chatbot_root');
+
+function ez_chatbot_languages() {
+  load_plugin_textdomain('ez-chatbot', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+
+function ez_chatbot_mofiles($mofile, $domain) {
+  if ('ez-chatbot' !== $domain) {
+    return $mofile;
+  }
+
+  $locale = apply_filters('plugin_locale', determine_locale(), $domain);
+
+  if (strpos($locale, "es_") === 0) {
+    $mofile = WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/languages/' . $domain . '-es_ES.mo';
+  }
+
+  return $mofile;
+}
 
 function ez_chatbot_register_rest_route() {
   register_rest_route('ez-chatbot/v1', '/openai', array(
