@@ -201,7 +201,7 @@ function ez_chatbot_settings_html() {
   $knowledge = get_option('ez_chatbot_knowledge');
   $api_key = ez_chatbot_get_api_key();
 
-  include(plugin_dir_path(__FILE__) . 'dist/settings.php');
+  include(plugin_dir_path(__FILE__) . 'pages/settings.php');
 }
 
 function ez_chatbot_root() {

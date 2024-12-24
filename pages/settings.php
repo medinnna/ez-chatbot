@@ -72,7 +72,7 @@
           <img src="<?php echo esc_attr($image); ?>" class="ez_chatbot_image <?php echo (empty($image) ? 'hidden' : ''); ?>" alt="EZ Chatbot Image" />
 
           <input type="hidden" class="ez_chatbot_image_upload" name="ez_chatbot_image" value="<?php echo esc_attr($image); ?>">
-          <input type="button" class="ez_chatbot_image_select" value="Subir Imagen" />
+          <input type="button" class="ez_chatbot_image_select" value="<?php esc_html_e('Upload image', 'ez-chatbot'); ?>" />
         </td>
       </tr>
 
@@ -102,7 +102,7 @@
         </th>
 
         <td>
-          <textarea rows="5" name="ez_chatbot_welcome"><?php echo (empty($welcome) ? '¡Hola! Soy tu asistente virtual. ¿En qué te puedo ayudar?' : esc_textarea($welcome)); ?></textarea>
+          <textarea rows="5" name="ez_chatbot_welcome"><?php echo (empty($welcome) ? _e("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : esc_textarea($welcome)); ?></textarea>
         </td>
       </tr>
 
