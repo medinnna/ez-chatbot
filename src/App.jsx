@@ -15,7 +15,7 @@ function App() {
     knowledge: window.ez_chatbot_settings?.knowledge ?? '',
     welcome: window.ez_chatbot_settings?.welcome ?? '¡Hola! Soy un asistente virtual.',
   };
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       role: 'system',
