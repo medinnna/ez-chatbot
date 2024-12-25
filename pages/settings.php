@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or die(); ?>
+
 <style>
   input[type="text"],
   input[type="password"],

@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or die(); ?>
+
 <div class="wrap">
   <?php if (count($conversations) > 0): ?>
     <h1>

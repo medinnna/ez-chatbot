@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or die(); ?>
+
 <div class="wrap">
   <h1>
     <?php _e('Conversation Details', 'ez-chatbot') ?>

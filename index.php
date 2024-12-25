@@ -8,6 +8,8 @@ Author: Carlos Medina
 Author URI: https://medina.dev
 */
 
+defined('ABSPATH') or die();
+
 add_action('init', 'ez_chatbot_conversations_post_type');
 add_action('admin_menu', 'ez_chatbot_conversations_sidebar');
 add_action('init', 'ez_chatbot_languages');
