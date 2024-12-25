@@ -8,6 +8,8 @@ Author: Carlos Medina
 Author URI: https://medina.dev
 */
 
+add_action('init', 'ez_chatbot_conversations_post_type');
+add_action('admin_menu', 'ez_chatbot_conversations_sidebar');
 add_action('init', 'ez_chatbot_languages');
 add_filter('load_textdomain_mofile', 'ez_chatbot_mofiles', 10, 2);
 add_action('rest_api_init', 'ez_chatbot_register_rest_route');
@@ -16,6 +18,52 @@ add_action('admin_enqueue_scripts', 'ez_chatbot_load_media');
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'ez_chatbot_links', 10, 2);
 add_action('admin_menu', 'ez_chatbot_settings_page');
 add_action('wp_footer', 'ez_chatbot_root');
+
+function ez_chatbot_conversations_post_type() {
+  register_post_type('chat_conversation', [
+    'labels' => [
+      'name' => __('Chat Conversations', 'ez-chatbot'),
+      'singular_name' => __('Chat Conversation', 'ez-chatbot'),
+    ],
+    'public' => false,
+    'show_ui' => true,
+    'supports' => ['title'],
+    'capability_type' => 'post',
+    'has_archive' => false,
+    'menu_icon' => 'dashicons-format-chat',
+  ]);
+}
+
+function ez_chatbot_conversations_sidebar() {
+  add_menu_page(
+    __('Conversations', 'ez-chatbot'),
+    __('Conversations', 'ez-chatbot'),
+    'manage_options',
+    'ez-chatbot-conversations',
+    'ez_chatbot_conversations_page',
+    'dashicons-format-chat',
+    100
+  );
+}
+
+function ez_chatbot_conversations_page() {
+  if (isset($_GET['conversation_id'])) {
+    $conversation_id = intval($_GET['conversation_id']);
+    $messages = get_post_meta($conversation_id, 'messages', true);
+
+    include(plugin_dir_path(__FILE__) . 'pages/conversation.php');
+  } else {
+    $conversations = get_posts([
+      'post_type' => 'chat_conversation',
+      'posts_per_page' => -1,
+      'post_status' => 'publish',
+      'orderby' => 'ID',
+      'order' => 'ASC'
+    ]);
+
+    include(plugin_dir_path(__FILE__) . 'pages/conversations.php');
+  }
+}
 
 function ez_chatbot_languages() {
   load_plugin_textdomain('ez-chatbot', false, dirname(plugin_basename(__FILE__)) . '/languages');
