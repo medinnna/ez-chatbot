@@ -14,7 +14,7 @@ add_action('init', 'ez_chatbot_conversations_post_type');
 add_action('admin_menu', 'ez_chatbot_conversations_sidebar');
 add_action('init', 'ez_chatbot_languages');
 add_filter('load_textdomain_mofile', 'ez_chatbot_mofiles', 10, 2);
-add_action('rest_api_init', 'ez_chatbot_register_rest_route');
+add_action('rest_api_init', 'ez_chatbot_register_rest_routes');
 add_action('wp_enqueue_scripts', 'ez_chatbot_enqueue_scripts');
 add_action('admin_enqueue_scripts', 'ez_chatbot_load_media');
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'ez_chatbot_links', 10, 2);
@@ -67,6 +67,85 @@ function ez_chatbot_conversations_page() {
   }
 }
 
+function ez_chatbot_create_conversation(WP_REST_Request $request) {
+  $args = array(
+    'post_type' => 'chat_conversation',
+    'posts_per_page' => -1,
+    'meta_query' => array(
+      array(
+        'key' => 'email',
+        'value' => $request->get_param('email')
+      )
+    )
+  );
+
+  $conversation = new WP_Query($args);
+
+  if (!$conversation->have_posts()) {
+    $conversation_id = wp_insert_post([
+      'post_type' => 'chat_conversation',
+      'post_title' => $request->get_param('name'),
+      'post_status' => 'publish',
+    ]);
+
+    update_post_meta($conversation_id, 'email', $request->get_param('email'));
+
+    $message = [
+      'conversation_id' => $conversation_id,
+      'sender' => 'Chatbot',
+      'message' => get_option('ez_chatbot_welcome')
+    ];
+
+    $message_json = json_encode($message);
+
+    ez_chatbot_save_message($message_json);
+  }
+}
+
+function ez_chatbot_save_message($request) {
+  if (is_a($request, 'WP_REST_Request')) {
+    $message = $request->get_json_params();
+
+    $args = array(
+      'post_type' => 'chat_conversation',
+      'posts_per_page' => 1,
+      'meta_query' => array(
+        array(
+          'key' => 'email',
+          'value' => $message['email']
+        )
+      )
+    );
+
+    $conversation = new WP_Query($args);
+
+    $body = [
+      'conversation_id' => $conversation->post->ID,
+      'sender' => $message['role'],
+      'message' => $message['message']
+    ];
+
+    $data = json_encode($body);
+  } else {
+    $data = $request;
+  }
+
+  $new_message = json_decode($data);
+  $messages = get_post_meta($new_message->conversation_id, 'messages', true);
+
+  if (!$messages) {
+    $messages = [];
+  }
+
+  $messages[] = [
+    'sender' => $new_message->sender,
+    'message' => $new_message->message,
+    'timestamp' => current_time('mysql'),
+  ];
+
+  update_post_meta($new_message->conversation_id, 'messages', $messages);
+}
+
 function ez_chatbot_languages() {
   load_plugin_textdomain('ez-chatbot', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
@@ -85,11 +164,23 @@ function ez_chatbot_mofiles($mofile, $domain) {
   return $mofile;
 }
 
-function ez_chatbot_register_rest_route() {
+function ez_chatbot_register_rest_routes() {
   register_rest_route('ez-chatbot/v1', '/openai', array(
     'methods' => 'POST',
     'callback' => 'ez_chatbot_request',
-    'permission_callback' => 'ez_chatbot_request_validator',
+    'permission_callback' => 'ez_chatbot_request_validator'
+  ));
+
+  register_rest_route('ez-chatbot/v1', '/conversations', array(
+    'methods' => 'POST',
+    'callback' => 'ez_chatbot_create_conversation',
+    'permission_callback' => 'ez_chatbot_request_validator'
+  ));
+
+  register_rest_route('ez-chatbot/v1', '/messages', array(
+    'methods' => 'POST',
+    'callback' => 'ez_chatbot_save_message',
+    'permission_callback' => 'ez_chatbot_request_validator'
   ));
 }
 
