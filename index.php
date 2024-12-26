@@ -59,7 +59,7 @@ class EZChatbot {
       $conversation_id = intval($_GET['conversation_id']);
       $messages = get_post_meta($conversation_id, 'messages', true);
 
-      include(plugin_dir_path(__FILE__) . 'pages/conversation.php');
+      require_once plugin_dir_path(__FILE__) . 'pages/conversation.php';
     } else {
       $conversations = get_posts([
         'post_type' => 'chat_conversation',
@@ -69,7 +69,7 @@ class EZChatbot {
         'order' => 'ASC'
       ]);
 
-      include(plugin_dir_path(__FILE__) . 'pages/conversations.php');
+      require_once plugin_dir_path(__FILE__) . 'pages/conversations.php';
     }
   }
 
@@ -348,7 +348,7 @@ class EZChatbot {
     $knowledge = get_option('ez_chatbot_knowledge');
     $api_key = $this->get_api_key();
 
-    include(plugin_dir_path(__FILE__) . 'pages/settings.php');
+    require_once plugin_dir_path(__FILE__) . 'pages/settings.php';
   }
 
   public function root() {
