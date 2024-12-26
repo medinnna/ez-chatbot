@@ -1,11 +1,14 @@
 <?php
 /*
-Plugin Name: EZ Chatbot
-Description: EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
-Text Domain: ez-chatbot
-Version: 1.0.0
-Author: Carlos Medina
-Author URI: https://medina.dev
+  Plugin Name: EZ Chatbot
+  Plugin URI: https://github.com/medinnna/ez-chatbot
+  Description: EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
+  Text Domain: ez-chatbot
+  Version: 1.0.0
+  Author: Carlos Medina
+  Author URI: https://medina.dev
+  License: GPL v3 or later
+  License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
 defined('ABSPATH') or die();
