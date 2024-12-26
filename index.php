@@ -15,19 +15,17 @@ defined('ABSPATH') or die();
 
 class EZChatbot {
   public function __construct() {
-    add_action('init', [$this, 'init']);
-  }
-
-  public function init() {
-    add_action('admin_menu', [$this, 'conversations_sidebar']);
-    add_action('init', [$this, 'load_languages']);
-    add_filter('load_textdomain_mofile', [$this, 'load_mofiles'], 10, 2);
-    add_action('rest_api_init', [$this, 'register_rest_routes']);
-    add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
-    add_action('admin_enqueue_scripts', [$this, 'load_media']);
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'action_links'], 10, 2);
     add_action('admin_menu', [$this, 'create_settings_page']);
-    add_action('wp_footer', [$this, 'root']);
+    add_action('admin_menu', [$this, 'create_conversations_page']);
+    add_action('admin_head', [$this, 'rename_settings_page']);
+    add_action('admin_enqueue_scripts', [$this, 'load_media']);
+    add_action('init', [$this, 'conversations_post_type']);
+    add_action('init', [$this, 'load_languages']);
+    add_filter('load_textdomain_mofile', [$this, 'load_mofiles'], 10, 2);
+    add_action('wp_footer', [$this, 'create_element']);
+    add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
+    add_action('rest_api_init', [$this, 'register_rest_routes']);
   }
 
   public function action_links($links, $file) {
@@ -38,7 +36,7 @@ class EZChatbot {
     }
 
     if ($file == $ez_chatbot) {
-      $settings_link = '<a href="' . admin_url('options-general.php?page=ez-chatbot-settings') . '">' . __('Settings', 'ez-chatbot') . '</a>';
+      $settings_link = '<a href="' . admin_url('admin.php?page=ez-chatbot-settings') . '">' . __('Settings', 'ez-chatbot') . '</a>';
 
       array_unshift($links, $settings_link);
     }
@@ -47,13 +45,33 @@ class EZChatbot {
   }
 
   public function create_settings_page() {
-    add_options_page(
+    add_menu_page(
       'EZ Chatbot',
       'EZ Chatbot',
       'manage_options',
       'ez-chatbot-settings',
-      [$this, 'settings_page']
+      [$this, 'settings_page'],
+      'dashicons-format-chat'
     );
+  }
+
+  public function create_conversations_page() {
+    add_submenu_page(
+      'ez-chatbot-settings',
+      __('Conversations', 'ez-chatbot'),
+      __('Conversations', 'ez-chatbot'),
+      'manage_options',
+      'ez-chatbot-conversations',
+      [$this, 'conversations_page']
+    );
+  }
+
+  public function rename_settings_page() {
+    global $submenu;
+
+    if (isset($submenu['ez-chatbot-settings'])) {
+      $submenu['ez-chatbot-settings'][0][0] = __('Settings', 'ez-chatbot');
+    }
   }
 
   public function settings_page() {
@@ -131,18 +149,6 @@ class EZChatbot {
       'has_archive' => false,
       'menu_icon' => 'dashicons-format-chat',
     ]);
-  }
-
-  public function conversations_sidebar() {
-    add_menu_page(
-      __('Conversations', 'ez-chatbot'),
-      __('Conversations', 'ez-chatbot'),
-      'manage_options',
-      'ez-chatbot-conversations',
-      [$this, 'conversations_page'],
-      'dashicons-format-chat',
-      100
-    );
   }
 
   public function conversations_page() {
