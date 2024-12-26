@@ -1,23 +1,27 @@
 # Copyright (C) 2024 Carlos Medina
-# This file is distributed under the same license as the EZ Chatbot plugin.
-#, fuzzy
+# This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2024-12-24 05:14-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"POT-Creation-Date: 2024-12-26T09:34:24+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: ez-chatbot\n"
 
 #. Plugin Name of the plugin
 #: index.php
 msgid "EZ Chatbot"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: index.php
+msgid "https://github.com/medinnna/ez-chatbot"
 msgstr ""
 
 #. Description of the plugin
@@ -35,58 +39,117 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:131
+#: index.php:43
+#: index.php:75
 msgid "Settings"
 msgstr ""
 
-#: pages/settings.php:43
+#: index.php:63
+#: index.php:64
+msgid "Conversations"
+msgstr ""
+
+#: index.php:144
+msgid "Chat Conversations"
+msgstr ""
+
+#: index.php:145
+msgid "Chat Conversation"
+msgstr ""
+
+#: pages/conversation.php:5
+msgid "Conversation Details"
+msgstr ""
+
+#: pages/conversation.php:9
+msgid "Back to conversations"
+msgstr ""
+
+#: pages/conversation.php:18
+msgid "Sender"
+msgstr ""
+
+#: pages/conversation.php:19
+msgid "Message"
+msgstr ""
+
+#: pages/conversation.php:20
+#: pages/conversations.php:14
+msgid "Date"
+msgstr ""
+
+#: pages/conversations.php:6
+msgid "EZ Chatbot Conversations"
+msgstr ""
+
+#: pages/conversations.php:12
+msgid "Name"
+msgstr ""
+
+#: pages/conversations.php:13
+msgid "Email"
+msgstr ""
+
+#: pages/conversations.php:15
+msgid "Actions"
+msgstr ""
+
+#: pages/conversations.php:27
+msgid "View"
+msgstr ""
+
+#: pages/conversations.php:36
+msgid "No conversations found"
+msgstr ""
+
+#: pages/settings.php:45
 msgid "EZ Chatbot - Settings"
 msgstr ""
 
-#: pages/settings.php:50
+#: pages/settings.php:52
 msgid "Customization"
 msgstr ""
 
-#: pages/settings.php:57
+#: pages/settings.php:59
 msgid "Enable"
 msgstr ""
 
-#: pages/settings.php:68
+#: pages/settings.php:70
 msgid "Profile image"
 msgstr ""
 
-#: pages/settings.php:75
+#: pages/settings.php:77
 msgid "Upload image"
 msgstr ""
 
-#: pages/settings.php:81
+#: pages/settings.php:83
 msgid "Profile name"
 msgstr ""
 
-#: pages/settings.php:91
+#: pages/settings.php:93
 msgid "Color"
 msgstr ""
 
-#: pages/settings.php:101
+#: pages/settings.php:103
 msgid "Welcome message"
 msgstr ""
 
-#: pages/settings.php:105
+#: pages/settings.php:107
 msgid "Hi! I'm your virtual assistant. What can I help you with?"
 msgstr ""
 
-#: pages/settings.php:111
+#: pages/settings.php:113
 msgid "System prompt"
 msgstr ""
 
-#: pages/settings.php:121
+#: pages/settings.php:123
 msgid "Knowledge"
 msgstr ""
 
-#: pages/settings.php:132
+#: pages/settings.php:134
 msgid "Connection"
 msgstr ""
 
-#: pages/settings.php:139
+#: pages/settings.php:141
 msgid "API Key"
 msgstr ""

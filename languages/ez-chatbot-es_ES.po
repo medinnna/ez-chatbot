@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2024-12-24T11:11:00+00:00\n"
-"PO-Revision-Date: 2024-12-24 05:11-0600\n"
+"POT-Creation-Date: 2024-12-26T09:34:24+00:00\n"
+"PO-Revision-Date: 2024-12-26 03:37-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -18,6 +18,11 @@ msgstr ""
 #. Plugin Name of the plugin
 #: index.php
 msgid "EZ Chatbot"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: index.php
+msgid "https://github.com/medinnna/ez-chatbot"
 msgstr ""
 
 #. Description of the plugin
@@ -39,58 +44,114 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:131
+#: index.php:43 index.php:75
 msgid "Settings"
 msgstr "Configuración"
 
-#: pages/settings.php:43
+#: index.php:63 index.php:64
+msgid "Conversations"
+msgstr "Conversaciones"
+
+#: index.php:144
+msgid "Chat Conversations"
+msgstr "Conversaciones"
+
+#: index.php:145
+msgid "Chat Conversation"
+msgstr "Conversación"
+
+#: pages/conversation.php:5
+msgid "Conversation Details"
+msgstr "Detalles de la conversación"
+
+#: pages/conversation.php:9
+msgid "Back to conversations"
+msgstr "Volver a conversaciones"
+
+#: pages/conversation.php:18
+msgid "Sender"
+msgstr "Remitente"
+
+#: pages/conversation.php:19
+msgid "Message"
+msgstr "Mensaje"
+
+#: pages/conversation.php:20 pages/conversations.php:14
+msgid "Date"
+msgstr "Fecha"
+
+#: pages/conversations.php:6
+msgid "EZ Chatbot Conversations"
+msgstr "EZ Chatbot - Conversaciones"
+
+#: pages/conversations.php:12
+msgid "Name"
+msgstr "Nombre"
+
+#: pages/conversations.php:13
+msgid "Email"
+msgstr "Correo"
+
+#: pages/conversations.php:15
+msgid "Actions"
+msgstr "Acciones"
+
+#: pages/conversations.php:27
+msgid "View"
+msgstr "Ver"
+
+#: pages/conversations.php:36
+msgid "No conversations found"
+msgstr "No se encontraron conversaciones"
+
+#: pages/settings.php:45
 msgid "EZ Chatbot - Settings"
 msgstr "EZ Chatbot - Configuración"
 
-#: pages/settings.php:50
+#: pages/settings.php:52
 msgid "Customization"
 msgstr "Personalización"
 
-#: pages/settings.php:57
+#: pages/settings.php:59
 msgid "Enable"
 msgstr "Mostrar"
 
-#: pages/settings.php:68
+#: pages/settings.php:70
 msgid "Profile image"
 msgstr "Imagen de perfil"
 
-#: pages/settings.php:75
+#: pages/settings.php:77
 msgid "Upload image"
 msgstr "Subir imagen"
 
-#: pages/settings.php:81
+#: pages/settings.php:83
 msgid "Profile name"
 msgstr "Nombre de perfil"
 
-#: pages/settings.php:91
+#: pages/settings.php:93
 msgid "Color"
 msgstr ""
 
-#: pages/settings.php:101
+#: pages/settings.php:103
 msgid "Welcome message"
 msgstr "Mensaje de bienvenida"
 
-#: pages/settings.php:105
+#: pages/settings.php:107
 msgid "Hi! I'm your virtual assistant. What can I help you with?"
 msgstr "¡Hola! Soy tu asistente virtual. ¿En qué te puedo ayudar?"
 
-#: pages/settings.php:111
+#: pages/settings.php:113
 msgid "System prompt"
 msgstr "Prompt del sistema"
 
-#: pages/settings.php:121
+#: pages/settings.php:123
 msgid "Knowledge"
 msgstr "Conocimientos"
 
-#: pages/settings.php:132
+#: pages/settings.php:134
 msgid "Connection"
 msgstr "Conexión"
 
-#: pages/settings.php:139
+#: pages/settings.php:141
 msgid "API Key"
 msgstr ""
