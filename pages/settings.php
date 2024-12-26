@@ -55,7 +55,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
+        <th>
           <?php _e('Enable', 'ez-chatbot'); ?>
         </th>
 
@@ -66,7 +66,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
+        <th>
           <?php _e('Profile image', 'ez-chatbot'); ?>
         </th>
 
@@ -79,7 +79,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
+        <th>
           <?php _e('Profile name', 'ez-chatbot'); ?>
         </th>
 
@@ -89,7 +89,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
+        <th>
           <?php _e('Color', 'ez-chatbot'); ?>
         </th>
 
@@ -99,7 +99,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
+        <th>
           <?php _e('Welcome message', 'ez-chatbot'); ?>
         </th>
 
@@ -109,17 +109,7 @@
       </tr>
 
       <tr>
-        <th scope="row">
-          <?php _e('System prompt', 'ez-chatbot'); ?>
-        </th>
-
-        <td>
-          <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea($system); ?></textarea>
-        </td>
-      </tr>
-
-      <tr>
-        <th scope="row">
+        <th>
           <?php _e('Knowledge', 'ez-chatbot'); ?>
         </th>
 
@@ -131,14 +121,14 @@
       <tr>
         <th>
           <h2 style="margin-bottom: 0">
-            <?php _e('Connection', 'ez-chatbot'); ?>
+            <?php _e('Advanced settings (Caution!)', 'ez-chatbot'); ?>
           </h2>
         </th>
       </tr>
 
-      <tr valign="top">
-        <th scope="row">
-          <?php _e('API Key', 'ez-chatbot'); ?>
+      <tr>
+        <th>
+          <?php _e('Open AI API Key', 'ez-chatbot'); ?>
         </th>
 
         <td>
@@ -147,6 +137,16 @@
           <?php else: ?>
             <input type="password" name="ez_chatbot_api_key" value="<?php echo esc_attr($api_key); ?>" />
           <?php endif; ?>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <?php _e('System prompt', 'ez-chatbot'); ?>
+        </th>
+
+        <td>
+          <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea($system); ?></textarea>
         </td>
       </tr>
     </table>
