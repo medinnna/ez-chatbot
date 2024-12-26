@@ -204,7 +204,8 @@ class EZChatbot {
       "color" => get_option('ez_chatbot_color'),
       "system" => get_option('ez_chatbot_system'),
       "knowledge" => get_option('ez_chatbot_knowledge'),
-      "welcome" => get_option('ez_chatbot_welcome')
+      "welcome" => get_option('ez_chatbot_welcome'),
+      "placeholder" => __('What can I help you with?', 'ez-chatbot')
     ]);
     wp_enqueue_script('ez_chatbot');
 

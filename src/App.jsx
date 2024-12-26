@@ -14,6 +14,7 @@ function App() {
     system: window.ez_chatbot_settings?.system ?? 'Eres un asistente virtual.',
     knowledge: window.ez_chatbot_settings?.knowledge ?? '',
     welcome: window.ez_chatbot_settings?.welcome ?? '¡Hola! Soy un asistente virtual.',
+    placeholder: window.ez_chatbot_settings?.placeholder ?? '¿En qué te puedo ayudar?'
   };
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
@@ -113,7 +114,7 @@ function App() {
                 type="text"
                 value={userMessage}
                 onChange={userMessageChange}
-                placeholder="¿En qué te podemos ayudar?"
+                placeholder={chatbot_settings.placeholder}
               />
 
               <button ref={sendButton} type="submit" onClick={handleSubmit} disabled={userMessage === ''}>

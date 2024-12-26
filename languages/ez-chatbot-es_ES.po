@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2024-12-26T09:34:24+00:00\n"
-"PO-Revision-Date: 2024-12-26 03:37-0600\n"
+"POT-Creation-Date: 2024-12-26T23:37:18+00:00\n"
+"PO-Revision-Date: 2024-12-26 17:38-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -44,21 +44,25 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:43 index.php:75
+#: index.php:39 index.php:73
 msgid "Settings"
 msgstr "Configuración"
 
-#: index.php:63 index.php:64
+#: index.php:61 index.php:62
 msgid "Conversations"
 msgstr "Conversaciones"
 
-#: index.php:144
+#: index.php:142
 msgid "Chat Conversations"
 msgstr "Conversaciones"
 
-#: index.php:145
+#: index.php:143
 msgid "Chat Conversation"
 msgstr "Conversación"
+
+#: index.php:208
+msgid "What can I help you with?"
+msgstr "¿En qué te puedo ayudar?"
 
 #: pages/conversation.php:5
 msgid "Conversation Details"
@@ -141,17 +145,20 @@ msgid "Hi! I'm your virtual assistant. What can I help you with?"
 msgstr "¡Hola! Soy tu asistente virtual. ¿En qué te puedo ayudar?"
 
 #: pages/settings.php:113
-msgid "System prompt"
-msgstr "Prompt del sistema"
-
-#: pages/settings.php:123
 msgid "Knowledge"
 msgstr "Conocimientos"
 
-#: pages/settings.php:134
-msgid "Connection"
-msgstr "Conexión"
+#: pages/settings.php:124
+msgid "Advanced settings (Caution!)"
+msgstr "Configuración avanzada (¡Precaución!)"
 
-#: pages/settings.php:141
-msgid "API Key"
+#: pages/settings.php:131
+msgid "Open AI API Key"
 msgstr ""
+
+#: pages/settings.php:145
+msgid "System prompt"
+msgstr "Prompt del sistema"
+
+#~ msgid "Connection"
+#~ msgstr "Conexión"
