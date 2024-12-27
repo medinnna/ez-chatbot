@@ -1,9 +1,11 @@
 # EZ Chatbot
 
-EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
+Custom chatbot for your website using the OpenAI API.
+
+![EZ Chatbot](./banner.png)
 
 ## Features
-- Create a custom chatbot with your own knowledge base.
+- Custom chatbot with your own knowledge base.
 - Customizable appearance.
 - Save user conversations on your Wordpress database.
 
@@ -14,3 +16,24 @@ EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for 
 - Select **Add new plugin**. 
 - Select **Upload plugin** and choose the downloaded file.
 - Click **Install Now**.
+
+## Build/Development
+
+- Clone the repository:
+```sh
+git clone https://github.com/medinnna/ez-chatbot.git
+```
+- Install the dependencies. 
+```sh
+npm install
+```
+- Build the plugin.
+```sh
+npm run build
+```
+
+The build automatically creates the plugin zip file in the `dist` folder only with the necessary files.
+
+## License
+
+EZ Chatbot is licensed under the [GPL v3 or later](https://www.gnu.org/licenses/gpl-3.0.html).
