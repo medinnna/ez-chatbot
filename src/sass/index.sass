@@ -65,34 +65,77 @@
       gap: 20px
       overflow: scroll
 
-      .message
-        max-width: 85%
-        padding: 12px 15px
-        line-height: 1.5
+      .messages
+        display: flex
+        flex-direction: column
+        gap: 20px
 
-        &:nth-child(odd)
-          background: var(--color)
-          margin-right: auto
-          border-radius: 15px 15px 15px 0
-          color: white
+        .message
+          max-width: 85%
+          min-height: 45px
+          padding: 12px 15px
+          line-height: 1.5
 
-        &:nth-child(even)
-          background: #e2e2e2 !important
-          border-radius: 15px 15px 0 15px
-          margin-left: auto
-          color: black
+          &:nth-child(odd)
+            background: var(--color)
+            margin-right: auto
+            border-radius: 15px 15px 15px 0
+            color: white
 
-        span
-          animation: opacity .3s ease forwards
-          opacity: 0
+          &:nth-child(even)
+            background: #e2e2e2 !important
+            border-radius: 15px 15px 0 15px
+            margin-left: auto
+            color: black
 
-          @keyframes opacity
-            to
-              opacity: 1
+          span
+            animation: opacity .3s ease forwards
+            opacity: 0
 
-        ul
-          padding-left: 15px
-          margin-bottom: 0
+            @keyframes opacity
+              to
+                opacity: 1
+
+          ul
+            padding-left: 15px
+            margin-bottom: 0
+
+      .loading
+        width: max-content
+        background: var(--color)
+        padding: 12px
+        margin-bottom: 15px
+        border-radius: 15px 15px 15px 0
+
+        .dots
+          display: flex
+          gap: 5px
+
+          .dot
+            background: white
+            border-radius: 100%
+            width: 6px
+            height: 6px
+            opacity: .8
+            animation: loading 1s ease infinite
+
+            &:nth-child(2)
+              animation-delay: .2s
+              opacity: .6
+
+            &:nth-child(3)
+              animation-delay: .4s
+              opacity: .4
+
+            @keyframes loading
+              0%
+                opacity: .8
+
+              50%
+                opacity: .5
+
+              100%
+                opacity: .8
 
     footer
       padding: 0 15px

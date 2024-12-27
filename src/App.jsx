@@ -31,6 +31,7 @@ function App() {
   const historyContainer = useRef(null);
   const sendInput = useRef(null); 
   const sendButton = useRef(null);
+  const [loading, setLoading] = useState(false)
   const previousScrollTop = useRef(0);
 
   const handleOpen = () => {
@@ -55,6 +56,7 @@ function App() {
   const handleSubmit = async (e) => {
     if (userMessage === '') return;
 
+    setLoading(true);
     setUserScroll(false);
     sendButton.current.disabled = true;
 
@@ -68,7 +70,13 @@ function App() {
     setUserMessage('');
     setMessages(updatedMessages);
 
-    await chatbotRequest(updatedMessages, setMessages, chatbot_settings.base_url);
+    await chatbotRequest(
+      loading,
+      setLoading,
+      updatedMessages,
+      setMessages,
+      chatbot_settings.base_url
+    );
 
     e.preventDefault();
   }
@@ -111,11 +119,21 @@ function App() {
           </header>
 
           <main ref={historyContainer} onScroll={handleScroll}>
-            {[...messages].filter(message => message['role'] !== 'system').map((message, index) => (
-              <div className="message" key={index}>
-                {message['content']}
+            <div className="messages">
+              {[...messages].filter(message => message['role'] !== 'system').map((message, index) => (
+                <div className="message" key={index}>
+                  {message['content']}
+                </div>
+              ))}
+            </div>
+
+            <div className="loading" style={{ display: loading ? 'block' : 'none' }}>
+              <div className="dots">
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
               </div>
-            ))}
+            </div>
           </main>
 
           <footer>

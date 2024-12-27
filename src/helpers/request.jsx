@@ -1,4 +1,4 @@
-export default async function request(messages, setMessages, baseURL) {
+export default async function request(loading, setLoading, messages, setMessages, baseURL) {
   const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/openai');
 
   const response = await fetch(url.toString(), {
@@ -12,6 +12,8 @@ export default async function request(messages, setMessages, baseURL) {
       stream: true
     }),
   });
+
+  setLoading(false);
 
   if (!response.ok) {
     console.error('Error en la respuesta:', await response.text());
@@ -30,7 +32,7 @@ export default async function request(messages, setMessages, baseURL) {
       const chunk = decoder.decode(value, { stream: true });
       const chunks = chunk.split("\n").filter(line => line.trim() !== "");
 
-      chunks.forEach(line => {
+      chunks.forEach((line) => {
         if (line.startsWith('data:')) {
           const json = line.substring(5).trim();
 
