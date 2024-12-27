@@ -9,7 +9,7 @@ function App() {
     assets_url: window.ez_chatbot_settings?.assets_url ?? '',
     enabled: window.ez_chatbot_settings?.enabled ?? true,
     image: window.ez_chatbot_settings?.image ?? profileImage,
-    name: window.ez_chatbot_settings?.name ?? 'Chatbot',
+    name: window.ez_chatbot_settings?.name ?? 'EZ Chatbot',
     color: window.ez_chatbot_settings?.color ?? '#000',
     system: window.ez_chatbot_settings?.system ?? 'Eres un asistente virtual.',
     knowledge: window.ez_chatbot_settings?.knowledge ?? '',

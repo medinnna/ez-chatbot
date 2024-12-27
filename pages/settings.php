@@ -84,7 +84,7 @@
         </th>
 
         <td>
-          <input type="text" name="ez_chatbot_name" value="<?php echo (empty($name) ? 'Chatbot' : esc_attr($name)); ?>" placeholder="Chatbot" />
+          <input type="text" name="ez_chatbot_name" value="<?php echo (empty($name) ? 'EZ Chatbot' : esc_attr($name)); ?>" placeholder="Chatbot" />
         </td>
       </tr>
 
