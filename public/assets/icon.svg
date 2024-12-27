@@ -1,0 +1,10 @@
+<svg width="21px" height="16px" viewBox="0 0 448 343" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-32.4628,-84.9312)">
+        <g transform="matrix(1,0,0,1,2.12001,21.2825)">
+            <path d="M155.332,277.969L71.656,277.969L71.656,191.466C71.656,143.723 110.417,104.962 158.16,104.962L265.925,104.962C313.667,104.962 352.428,143.723 352.428,191.466C352.428,191.481 352.428,191.496 352.428,191.511C351.489,191.481 350.546,191.466 349.6,191.466L241.835,191.466C194.093,191.466 155.332,230.227 155.332,277.969Z" style="fill:none;stroke:white;stroke-width:45.83px;"/>
+            <g transform="matrix(-1.23983,0,0,1,597.533,108.473)">
+                <path d="M130.203,169.497C130.203,121.754 161.466,82.993 199.973,82.993L286.892,82.993C325.399,82.993 356.662,121.754 356.662,169.497C356.662,217.239 325.399,256 286.892,256L130.203,256L130.203,169.497Z" style="fill:none;stroke:white;stroke-width:40.69px;"/>
+            </g>
+        </g>
+    </g>
+</svg>

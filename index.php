@@ -51,7 +51,7 @@ class EZChatbot {
       'manage_options',
       'ez-chatbot-settings',
       [$this, 'settings_page'],
-      'dashicons-format-chat'
+      plugin_dir_url(__FILE__) . 'dist/assets/icon.svg'
     );
   }
 
