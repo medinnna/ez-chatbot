@@ -29,8 +29,18 @@ function App() {
   const [userMessage, setUserMessage] = useState('')
   const [userScroll, setUserScroll] = useState(false);
   const historyContainer = useRef(null);
+  const sendInput = useRef(null); 
   const sendButton = useRef(null);
   const previousScrollTop = useRef(0);
+
+  const handleOpen = () => {
+    setOpen((isOpen) => {
+      if (!isOpen) {
+        sendInput.current.focus();
+      }
+      return !isOpen;
+    });
+  };
 
   const userMessageChange = (e) => {
     setUserMessage(e.target.value);
@@ -111,6 +121,7 @@ function App() {
           <footer>
             <form action="#">
               <input
+                ref={sendInput}
                 type="text"
                 value={userMessage}
                 onChange={userMessageChange}
@@ -124,7 +135,7 @@ function App() {
           </footer>
         </div>
 
-        <div className="chatbot__widget-btn" onClick={() => setOpen(!open)}>
+        <div className="chatbot__widget-btn" onClick={() => handleOpen()}>
           <MessageSquare color="white" />
         </div>
       </div>
