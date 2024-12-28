@@ -1,5 +1,5 @@
 export default async function saveMessage(role, email, message, baseURL) {
-  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/messages');
+  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/messages')
 
   const response = await fetch(url.toString(), {
     method: 'POST',
@@ -9,13 +9,13 @@ export default async function saveMessage(role, email, message, baseURL) {
     body: JSON.stringify({
       role: role,
       email: email,
-      message: message
-    })
-  });
+      message: message,
+    }),
+  })
 
   if (!response.ok) {
-    console.error('Error en la respuesta:', await response.text());
+    console.error('Error en la respuesta:', await response.text())
   }
 
-  return response.ok;
+  return response.ok
 }

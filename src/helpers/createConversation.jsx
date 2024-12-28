@@ -1,5 +1,5 @@
 export default async function createConversation(name, email, baseURL) {
-  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/conversations');
+  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/conversations')
 
   const response = await fetch(url.toString(), {
     method: 'POST',
@@ -8,13 +8,13 @@ export default async function createConversation(name, email, baseURL) {
     },
     body: JSON.stringify({
       name: name,
-      email: email
-    })
-  });
+      email: email,
+    }),
+  })
 
   if (!response.ok) {
-    console.error('Error en la respuesta:', await response.text());
+    console.error('Error en la respuesta:', await response.text())
   }
 
-  return response.ok;
+  return response.ok
 }

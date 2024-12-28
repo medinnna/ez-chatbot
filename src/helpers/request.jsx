@@ -1,5 +1,11 @@
-export default async function request(loading, setLoading, messages, setMessages, baseURL) {
-  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/openai');
+export default async function request(
+  loading,
+  setLoading,
+  messages,
+  setMessages,
+  baseURL
+) {
+  const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/openai')
 
   const response = await fetch(url.toString(), {
     method: 'POST',
@@ -9,49 +15,49 @@ export default async function request(loading, setLoading, messages, setMessages
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       messages: messages,
-      stream: true
+      stream: true,
     }),
-  });
+  })
 
-  setLoading(false);
+  setLoading(false)
 
   if (!response.ok) {
-    console.error('Error en la respuesta:', await response.text());
-    return;
+    console.error('Error en la respuesta:', await response.text())
+    return
   }
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder('utf-8');
-  let assistantMessage = '';
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder('utf-8')
+  let assistantMessage = ''
 
   while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
+    const { done, value } = await reader.read()
+    if (done) break
 
     if (value) {
-      const chunk = decoder.decode(value, { stream: true });
-      const chunks = chunk.split("\n").filter(line => line.trim() !== "");
+      const chunk = decoder.decode(value, { stream: true })
+      const chunks = chunk.split('\n').filter((line) => line.trim() !== '')
 
       chunks.forEach((line) => {
         if (line.startsWith('data:')) {
-          const json = line.substring(5).trim();
+          const json = line.substring(5).trim()
 
           if (json !== '[DONE]') {
-            const data = JSON.parse(json);
-            const content = data.choices[0]?.delta?.content || '';
+            const data = JSON.parse(json)
+            const content = data.choices[0]?.delta?.content || ''
 
-            assistantMessage += content;
-            const updatedMessages = [...messages];
+            assistantMessage += content
+            const updatedMessages = [...messages]
 
             updatedMessages[updatedMessages.length] = {
               role: 'assistant',
-              content: assistantMessage
-            };
+              content: assistantMessage,
+            }
 
-            setMessages(updatedMessages);
+            setMessages(updatedMessages)
           }
         }
-      });
+      })
     }
   }
 }
