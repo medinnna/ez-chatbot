@@ -282,12 +282,13 @@ class EZChatbot {
       'Authorization: Bearer ' . $api_key,
       'Content-Type: application/json',
     ];
-    $data = json_encode(array_merge($body, ['stream' => true]));
+    $data = json_encode(array_merge($body));
+    $streaming = isset($body['stream']) ? boolval($body['stream']) : false;
 
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, $streaming ? false : true);
     curl_setopt($curl, CURLOPT_WRITEFUNCTION, function ($curl, $data) {
       echo $data;
       ob_flush();
@@ -298,9 +299,13 @@ class EZChatbot {
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($curl, CURLOPT_HEADER, false);
 
-    header('Content-Type: text/event-stream');
-    header('Cache-Control: no-cache');
-    header('Connection: keep-alive');
+    if ($streaming) {
+      header('Content-Type: text/event-stream');
+      header('Cache-Control: no-cache');
+      header('Connection: keep-alive');
+    } else {
+      header('Content-Type: application/json');
+    }
 
     curl_exec($curl);
     $err = curl_error($curl);
