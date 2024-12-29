@@ -127,9 +127,12 @@ function App() {
                     ? chatbot_settings.image
                     : chatbot_settings.assets_url + profileImage
                 }
+                alt="Profile image of the chatbot"
               />
 
-              <p>{chatbot_settings.name}</p>
+              <p aria-label={`Chatbot name: ${chatbot_settings.name}`}>
+                {chatbot_settings.name}
+              </p>
 
               <X
                 className="close"
