@@ -140,7 +140,7 @@ function App() {
               {[...messages]
                 .filter((message) => message['role'] !== 'system')
                 .map((message, index) => (
-                  <div className="message" key={index}>
+                  <div className={`message ${message['role']}`} key={index}>
                     {message['content']}
                   </div>
                 ))}
