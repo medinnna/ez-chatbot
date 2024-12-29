@@ -111,79 +111,83 @@ function App() {
     }
   }, [messages, userScroll])
 
-  if (!chatbot_settings.enabled) return null
-
   return (
     <>
-      <div
-        className={`chatbot__widget ${open ? 'is-open' : ''}`}
-        style={{ '--color': chatbot_settings.color }}
-      >
-        <div className="chatbot__widget-window">
-          <header>
-            <img
-              className="profile"
-              src={
-                chatbot_settings.image
-                  ? chatbot_settings.image
-                  : chatbot_settings.assets_url + profileImage
-              }
-            />
-
-            <p>{chatbot_settings.name}</p>
-
-            <X className="close" color="white" onClick={() => setOpen(false)} />
-          </header>
-
-          <main ref={historyContainer} onScroll={handleScroll}>
-            <div className="messages">
-              {[...messages]
-                .filter((message) => message['role'] !== 'system')
-                .map((message, index) => (
-                  <div className={`message ${message['role']}`} key={index}>
-                    {message['content']}
-                  </div>
-                ))}
-            </div>
-
-            <div
-              className="loading"
-              style={{ display: loading ? 'block' : 'none' }}
-            >
-              <div className="dots">
-                <div className="dot"></div>
-                <div className="dot"></div>
-                <div className="dot"></div>
-              </div>
-            </div>
-          </main>
-
-          <footer>
-            <form action="#">
-              <input
-                ref={sendInput}
-                type="text"
-                value={userMessage}
-                onChange={userMessageChange}
-                placeholder={chatbot_settings.placeholder}
+      {chatbot_settings.enabled && (
+        <div
+          className={`chatbot__widget ${open ? 'is-open' : ''}`}
+          style={{ '--color': chatbot_settings.color }}
+        >
+          <div className="chatbot__widget-window">
+            <header>
+              <img
+                className="profile"
+                src={
+                  chatbot_settings.image
+                    ? chatbot_settings.image
+                    : chatbot_settings.assets_url + profileImage
+                }
               />
 
-              <button
-                ref={sendButton}
-                type="submit"
-                onClick={handleSubmit}
-                disabled={userMessage === ''}
-              >
-                <Send className="send" color="white" size="15" />
-              </button>
-            </form>
-          </footer>
-        </div>
+              <p>{chatbot_settings.name}</p>
 
-        <div className="chatbot__widget-btn" onClick={() => handleOpen()}>
-          <MessageSquare color="white" />
+              <X
+                className="close"
+                color="white"
+                onClick={() => setOpen(false)}
+              />
+            </header>
+
+            <main ref={historyContainer} onScroll={handleScroll}>
+              <div className="messages">
+                {[...messages]
+                  .filter((message) => message['role'] !== 'system')
+                  .map((message, index) => (
+                    <div className={`message ${message['role']}`} key={index}>
+                      {message['content']}
+                    </div>
+                  ))}
+              </div>
+
+              <div
+                className="loading"
+                style={{ display: loading ? 'block' : 'none' }}
+              >
+                <div className="dots">
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                </div>
+              </div>
+            </main>
+
+            <footer>
+              <form action="#">
+                <input
+                  ref={sendInput}
+                  type="text"
+                  value={userMessage}
+                  onChange={userMessageChange}
+                  placeholder={chatbot_settings.placeholder}
+                />
+
+                <button
+                  ref={sendButton}
+                  type="submit"
+                  onClick={handleSubmit}
+                  disabled={userMessage === ''}
+                >
+                  <Send className="send" color="white" size="15" />
+                </button>
+              </form>
+            </footer>
+          </div>
+
+          <div className="chatbot__widget-btn" onClick={() => handleOpen()}>
+            <MessageSquare color="white" />
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }
