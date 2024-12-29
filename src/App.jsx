@@ -57,7 +57,7 @@ function App() {
   }
 
   const handleSubmit = async (e) => {
-    if (userMessage === '') return
+    if (!userMessage.trim()) return
 
     setLoading(true)
     setUserScroll(false)
