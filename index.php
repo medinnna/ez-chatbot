@@ -82,7 +82,7 @@ class EZChatbot {
       update_option('ez_chatbot_image', sanitize_text_field($_POST['ez_chatbot_image']));
       update_option('ez_chatbot_name', sanitize_text_field($_POST['ez_chatbot_name']));
       update_option('ez_chatbot_color', $_POST['ez_chatbot_color']);
-      update_option('ez_chatbot_system', sanitize_text_field($_POST['ez_chatbot_system']));
+      update_option('ez_chatbot_system', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_system'])));
       update_option('ez_chatbot_knowledge', sanitize_text_field($_POST['ez_chatbot_knowledge']));
       update_option('ez_chatbot_welcome', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_welcome'])));
 
