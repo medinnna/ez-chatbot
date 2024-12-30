@@ -351,8 +351,8 @@ class EZChatbot {
 
       $body = [
         'conversation_id' => $conversation->post->ID,
-        'sender' => $message['role'],
-        'message' => $message['message']
+        'sender' => $message['role'] === 'assistant' ? 'Chatbot' : 'User',
+        'message' => $message['content']
       ];
 
       $data = json_encode($body);
