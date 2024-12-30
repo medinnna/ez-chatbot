@@ -234,37 +234,43 @@ class EZChatbot {
   }
 
   public function create_conversation(WP_REST_Request $request) {
+    $conversation = $request->get_json_params();
+
     $args = array(
       'post_type' => 'chat_conversation',
       'posts_per_page' => -1,
       'meta_query' => array(
         array(
           'key' => 'email',
-          'value' => $request->get_param('email')
+          'value' => $conversation['email']
         )
       )
     );
 
-    $conversation = new WP_Query($args);
+    $history = new WP_Query($args);
 
-    if (!$conversation->have_posts()) {
+    if (!$history->have_posts()) {
       $conversation_id = wp_insert_post([
         'post_type' => 'chat_conversation',
-        'post_title' => $request->get_param('name'),
+        'post_title' => $conversation['name'],
         'post_status' => 'publish',
       ]);
 
-      update_post_meta($conversation_id, 'email', $request->get_param('email'));
+      update_post_meta($conversation_id, 'email', $conversation['email']);
 
-      $message = [
-        'conversation_id' => $conversation_id,
-        'sender' => 'Chatbot',
-        'message' => get_option('ez_chatbot_welcome')
-      ];
+      foreach ($conversation['messages'] as $message) {
+        if ($message['role'] === 'system') continue;
 
-      $message_json = json_encode($message);
+        $new_message = [
+          'conversation_id' => $conversation_id,
+          'sender' => $message['role'] === 'assistant' ? 'Chatbot' : 'User',
+          'message' => $message['content']
+        ];
 
-      $this->save_message($message_json);
+        $message_json = json_encode($new_message);
+
+        $this->save_message($message_json);
+      }
     }
   }
 
