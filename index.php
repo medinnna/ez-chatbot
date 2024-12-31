@@ -144,7 +144,7 @@ class EZChatbot {
         'singular_name' => __('Chat Conversation', 'ez-chatbot'),
       ],
       'public' => false,
-      'show_ui' => true,
+      'show_ui' => false,
       'supports' => ['title'],
       'capability_type' => 'post',
       'has_archive' => false,
