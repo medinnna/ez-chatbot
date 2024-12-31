@@ -30,16 +30,17 @@ function App() {
       content: chatbot_settings.welcome,
     },
   ])
-  const [userMessage, setUserMessage] = useState('')
-  const [userScroll, setUserScroll] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [userData, setUserData] = useState({
     name: null,
     email: null,
   })
+  const [userMessage, setUserMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [responding, setResponding] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [userScroll, setUserScroll] = useState(false)
   const historyContainer = useRef(null)
   const sendInput = useRef(null)
-  const sendButton = useRef(null)
   const previousScrollTop = useRef(0)
 
   const handleOpen = () => {
@@ -51,22 +52,23 @@ function App() {
     })
   }
 
-  const userMessageChange = (e) => {
-    setUserMessage(e.target.value)
-
-    if (e.target.value === '') {
-      sendButton.current.disabled = true
+  const handleInputChange = (e) => {
+    if (e.target.value === '' || loading || responding) {
+      setButtonDisabled(true)
     } else {
-      sendButton.current.disabled = false
+      setButtonDisabled(false)
     }
+
+    setUserMessage(e.target.value)
   }
 
   const handleSubmit = async (e) => {
     if (!userMessage.trim()) return
 
     setLoading(true)
+    setResponding(true)
+    setButtonDisabled(true)
     setUserScroll(false)
-    sendButton.current.disabled = true
 
     const message = {
       role: 'user',
@@ -88,7 +90,10 @@ function App() {
     }
 
     await chatbotRequest(
+      userMessage,
       setLoading,
+      setResponding,
+      setButtonDisabled,
       updatedMessages,
       setMessages,
       userData,
@@ -185,15 +190,14 @@ function App() {
                   ref={sendInput}
                   type="text"
                   value={userMessage}
-                  onChange={userMessageChange}
+                  onChange={handleInputChange}
                   placeholder={chatbot_settings.placeholder}
                 />
 
                 <button
-                  ref={sendButton}
                   type="submit"
                   onClick={handleSubmit}
-                  disabled={userMessage === ''}
+                  disabled={buttonDisabled}
                 >
                   <Send className="send" color="white" size="15" />
                 </button>

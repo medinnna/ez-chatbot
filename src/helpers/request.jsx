@@ -2,7 +2,10 @@ import createConversation from './createConversation'
 import saveMessage from './saveMessage'
 
 export default async function request(
+  userMessage,
   setLoading,
+  setResponding,
+  setButtonDisabled,
   messages,
   setMessages,
   userData,
@@ -103,6 +106,8 @@ export default async function request(
       return
     }
 
+    setResponding(true)
+
     const reader = response.body.getReader()
     const decoder = new TextDecoder('utf-8')
     let assistantMessage = ''
@@ -166,7 +171,10 @@ export default async function request(
                     }
 
                     request(
+                      userMessage,
                       setLoading,
+                      setResponding,
+                      setButtonDisabled,
                       messages,
                       setMessages,
                       updatedData,
@@ -187,6 +195,14 @@ export default async function request(
                   })
                 }
               } else if (data.choices[0].finish_reason === 'stop') {
+                setResponding(false)
+
+                if (userMessage) {
+                  setButtonDisabled(false)
+                } else {
+                  setButtonDisabled(true)
+                }
+
                 if (userData.email) {
                   saveMessage(
                     'assistant',
