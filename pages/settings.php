@@ -146,7 +146,7 @@
         </th>
 
         <td>
-          <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea($system); ?></textarea>
+          <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea(!empty($system) ? $system : $system_default); ?></textarea>
         </td>
       </tr>
     </table>

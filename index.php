@@ -100,6 +100,7 @@ class EZChatbot {
     $name = get_option('ez_chatbot_name');
     $color = get_option('ez_chatbot_color');
     $system = get_option('ez_chatbot_system');
+    $system_default = "You are a chatbot. Do not answer questions that are not related to the knowledge assigned to you. Do not answer questions about world knowledge, famous people, etc. Before you can respond to the user on a topic, they must provide their name and email address. You must first ask for their name in one message and then ask for their email separately. If the user has already given their name, explicitly ask them for their email address. Use the 'get_user_name' function when the user writes a name. Use the 'get_user_email' function only if the user's message contains a valid email (with an '@' and appropriate formatting). Do not call a function if the data is invalid and ask the user to provide a correct value. If the user has already provided their name and email, you can answer their questions. Your knowledge is as follows:";
     $welcome = get_option('ez_chatbot_welcome');
     $knowledge = get_option('ez_chatbot_knowledge');
     $api_key = $this->get_api_key();
