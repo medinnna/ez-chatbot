@@ -9,7 +9,7 @@ export default async function saveMessage(role, email, message, baseURL) {
     body: JSON.stringify({
       role: role,
       email: email,
-      message: message,
+      content: message,
     }),
   })
 

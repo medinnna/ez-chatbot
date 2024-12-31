@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import profileImage from './img/profile.png'
 import { X, Send, MessageSquare } from 'lucide-react'
 import chatbotRequest from './helpers/request'
+import saveMessage from './helpers/saveMessage'
 
 function App() {
   const chatbot_settings = {
@@ -32,6 +33,10 @@ function App() {
   const [userMessage, setUserMessage] = useState('')
   const [userScroll, setUserScroll] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [userData, setUserData] = useState({
+    name: null,
+    email: null,
+  })
   const historyContainer = useRef(null)
   const sendInput = useRef(null)
   const sendButton = useRef(null)
@@ -73,11 +78,21 @@ function App() {
     setUserMessage('')
     setMessages(updatedMessages)
 
+    if (userData.email) {
+      saveMessage(
+        message.role,
+        userData.email,
+        message.content,
+        chatbot_settings.base_url
+      )
+    }
+
     await chatbotRequest(
-      loading,
       setLoading,
       updatedMessages,
       setMessages,
+      userData,
+      setUserData,
       chatbot_settings.base_url
     )
 
