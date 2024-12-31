@@ -202,8 +202,6 @@ class EZChatbot {
       "image" => get_option('ez_chatbot_image'),
       "name" => get_option('ez_chatbot_name'),
       "color" => get_option('ez_chatbot_color'),
-      "system" => get_option('ez_chatbot_system'),
-      "knowledge" => get_option('ez_chatbot_knowledge'),
       "welcome" => get_option('ez_chatbot_welcome'),
       "placeholder" => __('What can I help you with?', 'ez-chatbot')
     ]);
@@ -213,7 +211,7 @@ class EZChatbot {
     wp_enqueue_style('ez_chatbot', plugins_url('/dist/assets/index.css', __FILE__), [], '1.0.0');
   }
 
-  public function register_rest_routes() {
+  public function register_rest_routes() {    
     register_rest_route('ez-chatbot/v1', '/openai', array(
       'methods' => 'POST',
       'callback' => [$this, 'create_request'],
@@ -283,12 +281,22 @@ class EZChatbot {
 
     $url = 'https://api.openai.com/v1/chat/completions';
     $curl = curl_init($url);
-    $body = $request->get_json_params();
     $headers = [
       'Authorization: Bearer ' . $api_key,
       'Content-Type: application/json',
     ];
-    $data = json_encode(array_merge($body));
+    $instructions = [
+      'role' => 'system',
+      'content' => get_option('ez_chatbot_system')
+    ];
+    $knowledge = [
+      'role' => 'system',
+      'content' => get_option('ez_chatbot_knowledge')
+    ];
+    $system_prompt = [$instructions, $knowledge];
+    $body = $request->get_json_params();
+    $messages = array_merge($system_prompt, $body['messages']);
+    $data = json_encode(array_merge($body, ['messages' => $messages]));
     $streaming = isset($body['stream']) ? boolval($body['stream']) : false;
 
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);

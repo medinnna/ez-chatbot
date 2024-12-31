@@ -12,8 +12,6 @@ function App() {
     image: window.ez_chatbot_settings?.image ?? profileImage,
     name: window.ez_chatbot_settings?.name ?? 'EZ Chatbot',
     color: window.ez_chatbot_settings?.color ?? '#000',
-    system: window.ez_chatbot_settings?.system ?? 'Eres un asistente virtual.',
-    knowledge: window.ez_chatbot_settings?.knowledge ?? '',
     welcome:
       window.ez_chatbot_settings?.welcome ?? '¡Hola! Soy un asistente virtual.',
     placeholder:
@@ -21,10 +19,6 @@ function App() {
   }
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
-    {
-      role: 'system',
-      content: chatbot_settings.system + chatbot_settings.knowledge,
-    },
     {
       role: 'assistant',
       content: chatbot_settings.welcome,
