@@ -1,206 +1,207 @@
 @use 'reset'
 @use 'fonts'
 
-.chatbot__widget
-  display: flex
-  flex-direction: column
-  align-items: flex-end
-  gap: 10px
-  position: fixed
-  right: 20px
-  bottom: 20px
-  font:
-    size: 14px
-    family: "Figtree", sans-serif
-  z-index: 100
-
-  &:not(.is-open)
-    .chatbot__widget-window
-      pointer-events: none
-      opacity: 0
-      transform: translateY(10px)
-
-  .chatbot__widget-window
+#ez-chatbot-wrapper
+  .chatbot__widget
     display: flex
     flex-direction: column
-    background: white
-    width: 300px
-    height: 400px
-    border-radius: 15px
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, .2)
-    transition: all 0.5s ease
-    overflow: hidden
+    align-items: flex-end
+    gap: 10px
+    position: fixed
+    right: 20px
+    bottom: 20px
+    font:
+      size: 14px
+      family: "Figtree", sans-serif
+    z-index: 100
 
-    header
-      display: flex
-      align-items: center
-      background: var(--color)
-      padding: 15px 15px
-      gap: 10px
-      color: white
-      font-weight: bold
+    &:not(.is-open)
+      .chatbot__widget-window
+        pointer-events: none
+        opacity: 0
+        transform: translateY(10px)
 
-      .profile
-        background: white
-        width: 30px
-        height: 30px
-        border-radius: 100%
-        object-fit: cover
-        overflow: hidden
-
-      p
-        margin-bottom: 0
-        font-size: 14px
-
-      .close
-        margin-left: auto
-        stroke: white
-        cursor: pointer
-
-    main
+    .chatbot__widget-window
       display: flex
       flex-direction: column
-      flex: 1
-      padding: 15px
-      gap: 15px
-      overflow: scroll
+      background: white
+      width: 300px
+      height: 400px
+      border-radius: 15px
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, .2)
+      transition: all 0.5s ease
+      overflow: hidden
 
-      .messages
-        display: flex
-        flex-direction: column
-        gap: 15px
-
-        .message
-          max-width: 85%
-          min-height: 45px
-          padding: 12px 15px
-          line-height: 1.5
-
-          &.assistant
-            background: var(--color)
-            margin-right: auto
-            border-radius: 15px 15px 15px 0
-            color: white
-
-          &.user
-            background: #e2e2e2 !important
-            border-radius: 15px 15px 0 15px
-            margin-left: auto
-            color: black
-
-          span
-            animation: opacity .3s ease forwards
-            opacity: 0
-
-            @keyframes opacity
-              to
-                opacity: 1
-
-          ul
-            padding-left: 15px
-            margin-bottom: 0
-
-      .loading
-        width: max-content
-        background: var(--color)
-        padding: 12px
-        margin-bottom: 15px
-        border-radius: 15px 15px 15px 0
-
-        .dots
-          display: flex
-          gap: 5px
-
-          .dot
-            background: white
-            border-radius: 100%
-            width: 6px
-            height: 6px
-            opacity: .8
-            animation: loading 1s ease infinite
-
-            &:nth-child(2)
-              animation-delay: .2s
-              opacity: .6
-
-            &:nth-child(3)
-              animation-delay: .4s
-              opacity: .4
-
-            @keyframes loading
-              0%
-                opacity: .8
-
-              50%
-                opacity: .5
-
-              100%
-                opacity: .8
-
-    footer
-      padding: 0 15px
-      border-top: solid 1px #dedede
-
-      form
+      header
         display: flex
         align-items: center
-        gap: 15px
-        width: 100%
+        background: var(--color)
+        padding: 15px 15px
+        gap: 10px
+        color: white
+        font-weight: bold
 
-        input
-          flex: 1
-          padding: 15px 0
-          border: none
-          outline: none
-          font-family: inherit
-
-        button
-          display: grid
-          place-items: center
-          background: var(--color)
-          padding: 0
-          border: none
-          border-radius: 100%
+        .profile
+          background: white
           width: 30px
           height: 30px
+          border-radius: 100%
+          object-fit: cover
+          overflow: hidden
+
+        p
+          margin-bottom: 0
+          font-size: 14px
+
+        .close
+          margin-left: auto
+          stroke: white
           cursor: pointer
-          transition: opacity .3s ease
 
-          &:disabled
-            opacity: .2
-            pointer-events: none
+      main
+        display: flex
+        flex-direction: column
+        flex: 1
+        padding: 15px
+        gap: 15px
+        overflow: scroll
 
-          .send
-            margin:
-              left: -2px
-              bottom: -2px
-            stroke: white
+        .messages
+          display: flex
+          flex-direction: column
+          gap: 15px
 
-  .chatbot__widget-btn
-    position: relative
-    display: flex
-    align-items: center
-    justify-content: center
-    width: 50px
-    height: 50px
-    cursor: pointer
-    isolation: isolate
+          .message
+            max-width: 85%
+            min-height: 45px
+            padding: 12px 15px
+            line-height: 1.5
 
-    &:hover
+            &.assistant
+              background: var(--color)
+              margin-right: auto
+              border-radius: 15px 15px 15px 0
+              color: white
+
+            &.user
+              background: #e2e2e2 !important
+              border-radius: 15px 15px 0 15px
+              margin-left: auto
+              color: black
+
+            span
+              animation: opacity .3s ease forwards
+              opacity: 0
+
+              @keyframes opacity
+                to
+                  opacity: 1
+
+            ul
+              padding-left: 15px
+              margin-bottom: 0
+
+        .loading
+          width: max-content
+          background: var(--color)
+          padding: 12px
+          margin-bottom: 15px
+          border-radius: 15px 15px 15px 0
+
+          .dots
+            display: flex
+            gap: 5px
+
+            .dot
+              background: white
+              border-radius: 100%
+              width: 6px
+              height: 6px
+              opacity: .8
+              animation: loading 1s ease infinite
+
+              &:nth-child(2)
+                animation-delay: .2s
+                opacity: .6
+
+              &:nth-child(3)
+                animation-delay: .4s
+                opacity: .4
+
+              @keyframes loading
+                0%
+                  opacity: .8
+
+                50%
+                  opacity: .5
+
+                100%
+                  opacity: .8
+
+      footer
+        padding: 0 15px
+        border-top: solid 1px #dedede
+
+        form
+          display: flex
+          align-items: center
+          gap: 15px
+          width: 100%
+
+          input
+            flex: 1
+            padding: 15px 0
+            border: none
+            outline: none
+            font: inherit
+
+          button
+            display: grid
+            place-items: center
+            background: var(--color)
+            padding: 0
+            border: none
+            border-radius: 100%
+            width: 30px
+            height: 30px
+            cursor: pointer
+            transition: opacity .3s ease
+
+            &:disabled
+              opacity: .2
+              pointer-events: none
+
+            .send
+              margin:
+                left: -2px
+                bottom: -2px
+              stroke: white
+
+    .chatbot__widget-btn
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 50px
+      height: 50px
+      cursor: pointer
+      isolation: isolate
+
+      &:hover
+        &::after
+          transform: scale(1.1)
+
       &::after
-        transform: scale(1.1)
+        content: ''
+        position: absolute
+        background-color: var(--color)
+        width: 100%
+        height: 100%
+        border-radius: 100%
+        transition: all 0.3s ease
+        z-index: -1
 
-    &::after
-      content: ''
-      position: absolute
-      background-color: var(--color)
-      width: 100%
-      height: 100%
-      border-radius: 100%
-      transition: all 0.3s ease
-      z-index: -1
-
-    svg
-      width: 25px
-      height: 25px
-      stroke: white
+      svg
+        width: 25px
+        height: 25px
+        stroke: white
