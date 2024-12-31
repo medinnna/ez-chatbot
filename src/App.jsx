@@ -46,22 +46,11 @@ function App() {
     })
   }
 
-  const handleInputChange = (e) => {
-    if (e.target.value === '' || loading || responding) {
-      setButtonDisabled(true)
-    } else {
-      setButtonDisabled(false)
-    }
-
-    setUserMessage(e.target.value)
-  }
-
   const handleSubmit = async (e) => {
     if (!userMessage.trim()) return
 
     setLoading(true)
     setResponding(true)
-    setButtonDisabled(true)
     setUserScroll(false)
 
     const message = {
@@ -84,10 +73,8 @@ function App() {
     }
 
     await chatbotRequest(
-      userMessage,
       setLoading,
       setResponding,
-      setButtonDisabled,
       updatedMessages,
       setMessages,
       userData,
@@ -115,6 +102,14 @@ function App() {
       previousScrollTop.current = currentScrollTop
     }
   }
+
+  useEffect(() => {
+    if (userMessage !== '' && !loading && !responding) {
+      setButtonDisabled(false)
+    } else {
+      setButtonDisabled(true)
+    }
+  }, [userMessage, loading, responding])
 
   useEffect(() => {
     if (historyContainer.current && !userScroll) {
@@ -184,7 +179,7 @@ function App() {
                   ref={sendInput}
                   type="text"
                   value={userMessage}
-                  onChange={handleInputChange}
+                  onChange={(e) => setUserMessage(e.target.value)}
                   placeholder={chatbot_settings.placeholder}
                 />
 
