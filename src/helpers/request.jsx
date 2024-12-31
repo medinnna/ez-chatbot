@@ -91,7 +91,7 @@ export default async function request(
         messages,
         stream: true,
         tools: tools.length > 0 ? tools : null,
-        ...(tools.length > 1 && { parallel_tool_calls: false }),
+        ...(tools.length > 0 && { parallel_tool_calls: false }),
       }),
     })
 
