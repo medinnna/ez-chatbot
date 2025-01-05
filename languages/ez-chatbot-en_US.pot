@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Carlos Medina
+# Copyright (C) 2025 Carlos Medina
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-26T23:37:18+00:00\n"
+"POT-Creation-Date: 2025-01-05T11:25:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: ez-chatbot\n"
@@ -39,25 +39,41 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:39
-#: index.php:73
+#: index.php:48
+#: index.php:82
 msgid "Settings"
 msgstr ""
 
-#: index.php:61
-#: index.php:62
+#: index.php:70
+#: index.php:71
 msgid "Conversations"
 msgstr ""
 
-#: index.php:142
+#: index.php:152
 msgid "Chat Conversations"
 msgstr ""
 
-#: index.php:143
+#: index.php:153
 msgid "Chat Conversation"
 msgstr ""
 
-#: index.php:208
+#: index.php:190
+#: pages/conversation.php:18
+msgid "Sender"
+msgstr ""
+
+#: index.php:191
+#: pages/conversation.php:19
+msgid "Message"
+msgstr ""
+
+#: index.php:192
+#: pages/conversation.php:20
+#: pages/conversations.php:14
+msgid "Date"
+msgstr ""
+
+#: index.php:264
 msgid "What can I help you with?"
 msgstr ""
 
@@ -67,19 +83,6 @@ msgstr ""
 
 #: pages/conversation.php:9
 msgid "Back to conversations"
-msgstr ""
-
-#: pages/conversation.php:18
-msgid "Sender"
-msgstr ""
-
-#: pages/conversation.php:19
-msgid "Message"
-msgstr ""
-
-#: pages/conversation.php:20
-#: pages/conversations.php:14
-msgid "Date"
 msgstr ""
 
 #: pages/conversations.php:6
@@ -102,7 +105,11 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: pages/conversations.php:36
+#: pages/conversations.php:33
+msgid "Download"
+msgstr ""
+
+#: pages/conversations.php:42
 msgid "No conversations found"
 msgstr ""
 

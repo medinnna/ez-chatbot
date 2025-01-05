@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2024-12-26T23:37:18+00:00\n"
-"PO-Revision-Date: 2024-12-26 17:38-0600\n"
+"POT-Creation-Date: 2025-01-05T11:25:30+00:00\n"
+"PO-Revision-Date: 2025-01-05 05:27-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -44,23 +44,35 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:39 index.php:73
+#: index.php:48 index.php:82
 msgid "Settings"
 msgstr "Configuración"
 
-#: index.php:61 index.php:62
+#: index.php:70 index.php:71
 msgid "Conversations"
 msgstr "Conversaciones"
 
-#: index.php:142
+#: index.php:152
 msgid "Chat Conversations"
 msgstr "Conversaciones"
 
-#: index.php:143
+#: index.php:153
 msgid "Chat Conversation"
 msgstr "Conversación"
 
-#: index.php:208
+#: index.php:190 pages/conversation.php:18
+msgid "Sender"
+msgstr "Remitente"
+
+#: index.php:191 pages/conversation.php:19
+msgid "Message"
+msgstr "Mensaje"
+
+#: index.php:192 pages/conversation.php:20 pages/conversations.php:14
+msgid "Date"
+msgstr "Fecha"
+
+#: index.php:264
 msgid "What can I help you with?"
 msgstr "¿En qué te puedo ayudar?"
 
@@ -71,18 +83,6 @@ msgstr "Detalles de la conversación"
 #: pages/conversation.php:9
 msgid "Back to conversations"
 msgstr "Volver a conversaciones"
-
-#: pages/conversation.php:18
-msgid "Sender"
-msgstr "Remitente"
-
-#: pages/conversation.php:19
-msgid "Message"
-msgstr "Mensaje"
-
-#: pages/conversation.php:20 pages/conversations.php:14
-msgid "Date"
-msgstr "Fecha"
 
 #: pages/conversations.php:6
 msgid "EZ Chatbot Conversations"
@@ -104,7 +104,11 @@ msgstr "Acciones"
 msgid "View"
 msgstr "Ver"
 
-#: pages/conversations.php:36
+#: pages/conversations.php:33
+msgid "Download"
+msgstr "Descargar"
+
+#: pages/conversations.php:42
 msgid "No conversations found"
 msgstr "No se encontraron conversaciones"
 
