@@ -121,7 +121,7 @@ class EZChatbot {
     wp_enqueue_media();
   }
 
-  public function set_api_key($api_key) {
+  private function set_api_key($api_key) {
     $cipher = 'aes-256-cbc';
     $key = wp_salt('SECURE_AUTH_KEY');
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
@@ -132,7 +132,7 @@ class EZChatbot {
     update_option('ez_chatbot_api_key', $data);
   }
 
-  public function get_api_key() {
+  private function get_api_key() {
     $cipher = 'aes-256-cbc';
     $key = wp_salt('SECURE_AUTH_KEY');
     $encrypted_data = get_option('ez_chatbot_api_key', '');
@@ -180,7 +180,7 @@ class EZChatbot {
     }
   }
 
-  public function download_conversation($conversation_id) {
+  private function download_conversation($conversation_id) {
     $conversation = new WP_Query([
       'p' => $conversation_id,
       'post_type' => 'chat_conversation',
