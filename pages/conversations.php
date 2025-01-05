@@ -26,6 +26,12 @@
               <a href="<?php echo admin_url('admin.php?page=ez-chatbot-conversations&conversation_id=' . $conversation->ID); ?>">
                 <?php _e('View', 'ez-chatbot') ?>
               </a>
+
+              |
+
+              <a href="<?php echo admin_url('admin.php?page=ez-chatbot-conversations&conversation_id=' . $conversation->ID . '&ez-chatbot-download=1'); ?>">
+                <?php _e('Download', 'ez-chatbot') ?>
+              </a>
             </td>
           </tr>
         <?php endforeach; ?>

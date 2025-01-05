@@ -15,14 +15,23 @@ defined('ABSPATH') or die();
 
 class EZChatbot {
   public function __construct() {
+    add_action('init', [$this, 'load_languages']);
+    add_filter('load_textdomain_mofile', [$this, 'load_mofiles'], 10, 2);
+
+    if (isset($_GET['ez-chatbot-download'], $_GET['conversation_id'])) {
+      $conversation_id = intval($_GET['conversation_id']);
+      
+      add_action('init', function() use ($conversation_id) {
+        $this->download_conversation($conversation_id);
+      }, 10, 0);
+    }
+
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'action_links'], 10, 2);
     add_action('admin_menu', [$this, 'create_settings_page']);
     add_action('admin_menu', [$this, 'create_conversations_page']);
     add_action('admin_head', [$this, 'rename_settings_page']);
     add_action('admin_enqueue_scripts', [$this, 'load_media']);
     add_action('init', [$this, 'conversations_post_type']);
-    add_action('init', [$this, 'load_languages']);
-    add_filter('load_textdomain_mofile', [$this, 'load_mofiles'], 10, 2);
     add_action('wp_footer', [$this, 'create_element']);
     add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
     add_action('rest_api_init', [$this, 'register_rest_routes']);
@@ -153,7 +162,7 @@ class EZChatbot {
   }
 
   public function conversations_page() {
-    if (isset($_GET['conversation_id'])) {
+    if (isset($_GET['conversation_id']) && !isset($_GET['ez-chatbot-download'])) {
       $conversation_id = intval($_GET['conversation_id']);
       $messages = get_post_meta($conversation_id, 'messages', true);
 
@@ -168,6 +177,54 @@ class EZChatbot {
       ]);
 
       require_once plugin_dir_path(__FILE__) . 'pages/conversations.php';
+    }
+  }
+
+  public function download_conversation($conversation_id) {
+    $conversation = new WP_Query([
+      'p' => $conversation_id,
+      'post_type' => 'chat_conversation',
+    ]);
+    $email = get_post_meta($conversation->post->ID, 'email', true);
+    $file_headers = [
+      __('Sender', 'ez-chatbot'),
+      __('Message', 'ez-chatbot'),
+      __('Date', 'ez-chatbot')
+    ];
+    $fileName = "ez_chatbot-" . $email . ".csv";
+    $tempFile = tempnam(get_temp_dir(), 'download_');
+    $file = fopen($tempFile, 'w');
+
+    fputcsv($file, $file_headers);
+    
+    if($conversation->have_posts()): $conversation->the_post();
+      $messages = get_post_meta($conversation->post->ID, 'messages', true);
+
+      foreach ($messages as $message):
+        $data = [
+          'sender' => $message['sender'],
+          'message' => $message['message'],
+          'timestamp' => $message['timestamp']
+        ];
+
+        fputcsv($file, $data);
+      endforeach;
+    endif; wp_reset_query();
+
+    fclose($file);
+
+    if (file_exists($tempFile)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename=' . $fileName);
+      header('Content-Transfer-Encoding: binary');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($tempFile));
+
+      readfile($tempFile);
+      exit;
     }
   }
 
