@@ -1,27 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
-import profileImage from './img/profile.png'
 import { X, Send, MessageSquare } from 'lucide-react'
+import profileImage from './img/profile.png'
+import chatbotSettings from './config/chatbotSettings'
 import chatbotRequest from './helpers/request'
 import saveMessage from './helpers/saveMessage'
 
 function App() {
-  const chatbot_settings = {
-    base_url: window.ez_chatbot_settings?.base_url ?? '',
-    assets_url: window.ez_chatbot_settings?.assets_url ?? '',
-    enabled: window.ez_chatbot_settings?.enabled ?? true,
-    image: window.ez_chatbot_settings?.image ?? profileImage,
-    name: window.ez_chatbot_settings?.name ?? 'EZ Chatbot',
-    color: window.ez_chatbot_settings?.color ?? '#000',
-    welcome:
-      window.ez_chatbot_settings?.welcome ?? '¡Hola! Soy un asistente virtual.',
-    placeholder:
-      window.ez_chatbot_settings?.placeholder ?? '¿En qué te puedo ayudar?',
-  }
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: chatbot_settings.welcome,
+      content: chatbotSettings.welcome,
     },
   ])
   const [userData, setUserData] = useState({
@@ -68,7 +57,7 @@ function App() {
         message.role,
         userData.email,
         message.content,
-        chatbot_settings.base_url
+        chatbotSettings.base_url
       )
     }
 
@@ -79,7 +68,7 @@ function App() {
       setMessages,
       userData,
       setUserData,
-      chatbot_settings.base_url
+      chatbotSettings.base_url
     )
 
     e.preventDefault()
@@ -122,25 +111,25 @@ function App() {
 
   return (
     <>
-      {chatbot_settings.enabled && (
+      {chatbotSettings.enabled && (
         <div
           className={`chatbot__widget ${open ? 'is-open' : ''}`}
-          style={{ '--color': chatbot_settings.color }}
+          style={{ '--color': chatbotSettings.color }}
         >
           <div className="chatbot__widget-window">
             <header>
               <img
                 className="profile"
                 src={
-                  chatbot_settings.image
-                    ? chatbot_settings.image
-                    : chatbot_settings.assets_url + profileImage
+                  chatbotSettings.image
+                    ? chatbotSettings.image
+                    : chatbotSettings.assets_url + profileImage
                 }
                 alt="Profile image of the chatbot"
               />
 
-              <p aria-label={`Chatbot name: ${chatbot_settings.name}`}>
-                {chatbot_settings.name}
+              <p aria-label={`Chatbot name: ${chatbotSettings.name}`}>
+                {chatbotSettings.name}
               </p>
 
               <X
@@ -180,7 +169,7 @@ function App() {
                   type="text"
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
-                  placeholder={chatbot_settings.placeholder}
+                  placeholder={chatbotSettings.placeholder}
                 />
 
                 <button type="submit" disabled={buttonDisabled}>
