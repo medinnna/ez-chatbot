@@ -152,7 +152,7 @@ function App() {
 
             <main ref={historyContainer} onScroll={handleScroll}>
               <div className="messages">
-                {[...messages]
+                {messages
                   .filter((message) => message['role'] !== 'system')
                   .map((message, index) => (
                     <div className={`message ${message['role']}`} key={index}>
