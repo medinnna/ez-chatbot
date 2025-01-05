@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the EZ Chatbot plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ez-chatbot 1.0.0\n"
+"Project-Id-Version: ez-chatbot 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2025-01-05T11:25:30+00:00\n"
-"PO-Revision-Date: 2025-01-05 05:27-0600\n"
+"POT-Creation-Date: 2025-01-05T11:53:13+00:00\n"
+"PO-Revision-Date: 2025-01-05 05:54-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
