@@ -174,7 +174,7 @@ function App() {
             </main>
 
             <footer>
-              <form action="#">
+              <form action="#" onSubmit={handleSubmit}>
                 <input
                   ref={sendInput}
                   type="text"
@@ -183,11 +183,7 @@ function App() {
                   placeholder={chatbot_settings.placeholder}
                 />
 
-                <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  disabled={buttonDisabled}
-                >
+                <button type="submit" disabled={buttonDisabled}>
                   <Send className="send" color="white" size="15" />
                 </button>
               </form>
