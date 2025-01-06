@@ -252,7 +252,7 @@ class EZChatbot {
 
   public function enqueue_scripts() {
     // Scripts
-    wp_register_script('ez_chatbot', plugins_url('/dist/assets/index.js', __FILE__), [], '1.0.0', true);
+    wp_register_script('ez_chatbot', plugins_url('/dist/assets/index.js', __FILE__), [], '1.1.1', true);
     wp_localize_script('ez_chatbot', 'ez_chatbot_settings', [
       "base_url" => home_url(),
       "assets_url" => plugins_url('/dist', __FILE__),
