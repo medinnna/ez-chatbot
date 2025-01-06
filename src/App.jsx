@@ -36,6 +36,8 @@ function App() {
   }
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
+
     if (!userMessage.trim()) return
 
     setLoading(true)
@@ -70,8 +72,6 @@ function App() {
       setUserData,
       chatbotSettings.base_url
     )
-
-    e.preventDefault()
   }
 
   const handleScroll = () => {
@@ -163,7 +163,7 @@ function App() {
             </main>
 
             <footer>
-              <form action="#" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <input
                   ref={sendInput}
                   type="text"
