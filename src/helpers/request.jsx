@@ -113,6 +113,7 @@ export default async function request(
       name: null,
       arguments: '',
     }
+    let chunkJSON = ''
 
     while (true) {
       const { done, value } = await reader.read()
@@ -122,12 +123,19 @@ export default async function request(
         const chunk = decoder.decode(value, { stream: true })
         const chunks = chunk.split('\n').filter((line) => line.trim() !== '')
 
-        chunks.forEach((line) => {
-          if (line.startsWith('data:')) {
-            const json = line.substring(5).trim()
+        chunks.forEach((chunk) => {
+          chunkJSON += chunk
 
-            if (json !== '[DONE]') {
+          if (chunkJSON.startsWith('data:') && chunkJSON.endsWith('}]}')) {
+            const json = chunkJSON.substring(5).trim()
+
+            try {
               const data = JSON.parse(json)
+
+              if (!data) {
+                throw new Error('Error parsing JSON')
+              }
+
               const delta = data.choices[0]?.delta
               const content = delta?.content || ''
 
@@ -202,6 +210,10 @@ export default async function request(
                   )
                 }
               }
+
+              chunkJSON = ''
+            } catch (error) {
+              console.error(error)
             }
           }
         })
