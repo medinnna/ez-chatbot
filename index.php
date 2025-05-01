@@ -4,7 +4,7 @@
   Plugin URI: https://github.com/medinnna/ez-chatbot
   Description: EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
   Text Domain: ez-chatbot
-  Version: 1.1.1
+  Version: 1.2.0
   Author: Carlos Medina
   Author URI: https://medina.dev
   License: GPL v3 or later
