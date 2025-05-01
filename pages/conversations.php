@@ -39,7 +39,7 @@
 
               |
 
-              <a href="<?php echo admin_url('admin.php?page=ez-chatbot-conversations&conversation_id=' . $conversation->ID . '&ez-chatbot-download=1'); ?>">
+              <a href="<?php echo wp_nonce_url(admin_url('admin.php?page=ez-chatbot-conversations&download_conversation_id=' . $conversation->ID), 'download_conversation_' . $conversation->ID); ?>">
                 <?php _e('Download', 'ez-chatbot') ?>
               </a>
 

@@ -18,11 +18,12 @@ class EZChatbot {
     add_action('init', [$this, 'load_languages']);
     add_filter('load_textdomain_mofile', [$this, 'load_mofiles'], 10, 2);
 
-    if (isset($_GET['ez-chatbot-download'], $_GET['conversation_id'])) {
-      $conversation_id = intval($_GET['conversation_id']);
+    if (isset($_GET['_wpnonce'], $_GET['download_conversation_id'])) {
+      $nonce = $_GET['_wpnonce'];
+      $conversation_id = intval($_GET['download_conversation_id']);
       
-      add_action('init', function() use ($conversation_id) {
-        $this->download_conversation($conversation_id);
+      add_action('init', function() use ($nonce, $conversation_id) {
+        $this->download_conversation($nonce, $conversation_id);
       }, 10, 0);
     }
 
@@ -189,7 +190,11 @@ class EZChatbot {
     }
   }
 
-  private function download_conversation($conversation_id) {
+  private function download_conversation($nonce, $conversation_id) {
+    if (!wp_verify_nonce($nonce, 'download_conversation_' . $conversation_id) || !current_user_can('manage_options')) {
+      wp_die(__('You do not have permission to download this conversation.', 'ez-chatbot'));
+    }
+
     $conversation = new WP_Query([
       'p' => $conversation_id,
       'post_type' => 'chat_conversation',
