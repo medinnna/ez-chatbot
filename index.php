@@ -26,6 +26,15 @@ class EZChatbot {
       }, 10, 0);
     }
 
+    if (isset($_GET['_wpnonce'], $_GET['delete_conversation_id'])) {
+      $nonce = $_GET['_wpnonce'];
+      $conversation_id = intval($_GET['delete_conversation_id']);
+      
+      add_action('init', function() use ($nonce, $conversation_id) {
+        $this->delete_conversation($nonce, $conversation_id);
+      }, 10, 0);
+    }
+
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'action_links'], 10, 2);
     add_action('admin_menu', [$this, 'create_settings_page']);
     add_action('admin_menu', [$this, 'create_conversations_page']);
@@ -226,6 +235,16 @@ class EZChatbot {
       readfile($tempFile);
       exit;
     }
+  }
+
+  private function delete_conversation($nonce, $conversation_id) {
+    if (!wp_verify_nonce($nonce, 'delete_conversation_' . $conversation_id) || !current_user_can('manage_options')) {
+      wp_die(__('You do not have permission to delete this conversation.', 'ez-chatbot'));
+    }
+
+    wp_delete_post($conversation_id, true);
+    wp_redirect(admin_url('admin.php?page=ez-chatbot-conversations'));
+    exit;
   }
 
   public function load_languages() {
