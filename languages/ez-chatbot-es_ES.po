@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2025-01-05T11:53:13+00:00\n"
-"PO-Revision-Date: 2025-01-05 05:54-0600\n"
+"POT-Creation-Date: 2025-05-01T07:02:58+00:00\n"
+"PO-Revision-Date: 2025-05-01 01:03-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Domain: ez-chatbot\n"
 
 #. Plugin Name of the plugin
@@ -44,35 +44,43 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:48 index.php:82
+#: index.php:58 index.php:92
 msgid "Settings"
 msgstr "Configuración"
 
-#: index.php:70 index.php:71
+#: index.php:80 index.php:81
 msgid "Conversations"
 msgstr "Conversaciones"
 
-#: index.php:152
+#: index.php:162
 msgid "Chat Conversations"
 msgstr "Conversaciones"
 
-#: index.php:153
+#: index.php:163
 msgid "Chat Conversation"
 msgstr "Conversación"
 
-#: index.php:190 pages/conversation.php:18
+#: index.php:195
+msgid "You do not have permission to download this conversation."
+msgstr "No tienes permisos para descargar esta conversación."
+
+#: index.php:204 pages/conversation.php:18
 msgid "Sender"
 msgstr "Remitente"
 
-#: index.php:191 pages/conversation.php:19
+#: index.php:205 pages/conversation.php:19
 msgid "Message"
 msgstr "Mensaje"
 
-#: index.php:192 pages/conversation.php:20 pages/conversations.php:14
+#: index.php:206 pages/conversation.php:20 pages/conversations.php:24
 msgid "Date"
 msgstr "Fecha"
 
-#: index.php:264
+#: index.php:247
+msgid "You do not have permission to delete this conversation."
+msgstr "No tienes permisos para eliminar esta conversación."
+
+#: index.php:288
 msgid "What can I help you with?"
 msgstr "¿En qué te puedo ayudar?"
 
@@ -84,31 +92,39 @@ msgstr "Detalles de la conversación"
 msgid "Back to conversations"
 msgstr "Volver a conversaciones"
 
-#: pages/conversations.php:6
+#: pages/conversations.php:16
 msgid "EZ Chatbot Conversations"
 msgstr "EZ Chatbot - Conversaciones"
 
-#: pages/conversations.php:12
+#: pages/conversations.php:22
 msgid "Name"
 msgstr "Nombre"
 
-#: pages/conversations.php:13
+#: pages/conversations.php:23
 msgid "Email"
 msgstr "Correo"
 
-#: pages/conversations.php:15
+#: pages/conversations.php:25
 msgid "Actions"
 msgstr "Acciones"
 
-#: pages/conversations.php:27
+#: pages/conversations.php:37
 msgid "View"
 msgstr "Ver"
 
-#: pages/conversations.php:33
+#: pages/conversations.php:43
 msgid "Download"
 msgstr "Descargar"
 
-#: pages/conversations.php:42
+#: pages/conversations.php:48
+msgid "Are you sure you want to delete this conversation?"
+msgstr "¿Estás seguro que quieres eliminar esta conversación?"
+
+#: pages/conversations.php:49
+msgid "Delete"
+msgstr "Eliminar"
+
+#: pages/conversations.php:58
 msgid "No conversations found"
 msgstr "No se encontraron conversaciones"
 
