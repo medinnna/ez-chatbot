@@ -1,9 +1,4 @@
-export default async function createConversation(
-  name,
-  email,
-  messages,
-  baseURL
-) {
+export default async function createConversation(userData, messages, baseURL) {
   const url = new URL(baseURL + '/wp-json/ez-chatbot/v1/conversations')
 
   const response = await fetch(url.toString(), {
@@ -12,8 +7,7 @@ export default async function createConversation(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name,
-      email,
+      userData,
       messages,
     }),
   })

@@ -322,7 +322,7 @@ class EZChatbot {
       'meta_query' => array(
         array(
           'key' => 'email',
-          'value' => $conversation['email']
+          'value' => $conversation['userData']['email']
         )
       )
     );
@@ -332,11 +332,14 @@ class EZChatbot {
     if (!$history->have_posts()) {
       $conversation_id = wp_insert_post([
         'post_type' => 'chat_conversation',
-        'post_title' => $conversation['name'],
+        'post_title' => $conversation['userData']['name'],
         'post_status' => 'publish',
       ]);
 
-      update_post_meta($conversation_id, 'email', $conversation['email']);
+      foreach ($conversation['userData'] as $key => $value) {
+        if ($key === 'name') continue;
+        update_post_meta($conversation_id, $key, $value);
+      }
 
       foreach ($conversation['messages'] as $message) {
         if ($message['role'] === 'system') continue;

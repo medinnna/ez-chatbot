@@ -187,12 +187,7 @@ export default async function request(
                     )
 
                     if (tool.name === 'get_user_email') {
-                      createConversation(
-                        updatedData.name,
-                        updatedData.email,
-                        messages,
-                        baseURL
-                      )
+                      createConversation(updatedData, messages, baseURL)
                     }
 
                     return updatedData
