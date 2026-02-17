@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeExternalLinks from 'rehype-external-links'
 import { X, Send, MessageSquare } from 'lucide-react'
 import profileImage from './img/profile.png'
 import chatbotSettings from './config/chatbotSettings'
@@ -147,7 +148,18 @@ function App() {
                   .filter((message) => message['role'] !== 'system')
                   .map((message, index) => (
                     <div className={`message ${message['role']}`} key={index}>
-                      <Markdown remarkPlugins={[remarkGfm]}>
+                      <Markdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[
+                          [
+                            rehypeExternalLinks,
+                            {
+                              target: '_blank',
+                              rel: ['noopener', 'noreferrer'],
+                            },
+                          ],
+                        ]}
+                      >
                         {message['content']}
                       </Markdown>
                     </div>
