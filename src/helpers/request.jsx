@@ -108,110 +108,119 @@ export default async function request(
 
     const reader = response.body.getReader()
     const decoder = new TextDecoder('utf-8')
+    let buffer = ''
     let assistantMessage = ''
     let tool = {
       name: null,
       arguments: '',
     }
-    let chunkJSON = ''
 
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
 
-      if (value) {
-        const chunk = decoder.decode(value, { stream: true })
-        const chunks = chunk.split('\n').filter((line) => line.trim() !== '')
+      buffer += decoder.decode(value, { stream: true })
 
-        chunks.forEach((chunk) => {
-          chunkJSON += chunk
+      const events = buffer.split('\n\n')
+      buffer = events.pop()
 
-          if (chunkJSON.startsWith('data:') && chunkJSON.endsWith('}]}')) {
-            const json = chunkJSON.substring(5).trim()
+      for (const event of events) {
+        if (!event.startsWith('data:')) continue
 
-            try {
-              const data = JSON.parse(json)
+        const data = event.replace(/^data:\s*/, '').trim()
 
-              if (!data) {
-                throw new Error('Error parsing JSON')
+        if (data === '[DONE]') {
+          setResponding(false)
+          continue
+        }
+
+        let json
+
+        try {
+          json = JSON.parse(data)
+        } catch {
+          continue
+        }
+
+        const choice = json.choices?.[0]
+        if (!choice) continue
+
+        const delta = choice.delta
+
+        if (delta?.content) {
+          setLoading(false)
+
+          assistantMessage += delta.content
+
+          setMessages((prev) => {
+            const updated = [...prev]
+            const last = updated[updated.length - 1]
+
+            if (!last || last.role !== 'assistant') {
+              updated.push({
+                role: 'assistant',
+                content: assistantMessage,
+              })
+            } else {
+              updated[updated.length - 1] = {
+                ...last,
+                content: assistantMessage,
               }
-
-              const delta = data.choices[0]?.delta
-              const content = delta?.content || ''
-
-              if (delta?.tool_calls) {
-                const toolFunction = delta?.tool_calls[0].function
-
-                if (toolFunction.name) {
-                  tool.name = toolFunction.name
-                }
-
-                if (toolFunction.arguments) {
-                  tool.arguments += toolFunction.arguments
-                }
-              } else if (delta?.content) {
-                setLoading(false)
-                assistantMessage += content
-                const updatedMessages = [...messages]
-
-                updatedMessages[updatedMessages.length] = {
-                  role: 'assistant',
-                  content: assistantMessage,
-                }
-
-                setMessages(updatedMessages)
-              }
-
-              if (data.choices[0].finish_reason === 'tool_calls') {
-                if (
-                  tool.name === 'get_user_name' ||
-                  tool.name === 'get_user_email'
-                ) {
-                  const args = JSON.parse(tool.arguments)
-                  const functionProperty = tool.name.replace('get_user_', '')
-
-                  setUserData((prevUserData) => {
-                    const updatedData = {
-                      ...prevUserData,
-                      [functionProperty]: args[functionProperty],
-                    }
-
-                    request(
-                      setLoading,
-                      setResponding,
-                      messages,
-                      setMessages,
-                      updatedData,
-                      setUserData,
-                      baseURL
-                    )
-
-                    if (tool.name === 'get_user_email') {
-                      createConversation(updatedData, messages, baseURL)
-                    }
-
-                    return updatedData
-                  })
-                }
-              } else if (data.choices[0].finish_reason === 'stop') {
-                setResponding(false)
-
-                if (userData.email) {
-                  saveMessage(
-                    'assistant',
-                    userData.email,
-                    assistantMessage,
-                    baseURL
-                  )
-                }
-              }
-
-              chunkJSON = ''
-            } catch (error) {
-              console.error(error)
             }
+
+            return updated
+          })
+        }
+
+        if (delta?.tool_calls) {
+          const toolCall = delta.tool_calls[0]
+
+          if (toolCall.function?.name) {
+            tool.name = toolCall.function.name
           }
-        })
+
+          if (toolCall.function?.arguments) {
+            tool.arguments += toolCall.function.arguments
+          }
+        }
+
+        if (choice.finish_reason === 'tool_calls') {
+          try {
+            const args = JSON.parse(tool.arguments)
+            const property = tool.name.replace('get_user_', '')
+
+            const updatedData = {
+              ...userData,
+              [property]: args[property],
+            }
+
+            setUserData(updatedData)
+
+            if (tool.name === 'get_user_email') {
+              createConversation(updatedData, messages, baseURL)
+            }
+
+            return request(
+              setLoading,
+              setResponding,
+              messages,
+              setMessages,
+              updatedData,
+              setUserData,
+              baseURL
+            )
+          } catch (err) {
+            console.error('Tool parse error', err)
+          }
+        }
+
+        if (choice.finish_reason === 'stop') {
+          setResponding(false)
+
+          if (userData.email) {
+            saveMessage('assistant', userData.email, assistantMessage, baseURL)
+          }
+        }
       }
     }
   } catch (error) {
