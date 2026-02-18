@@ -2,6 +2,7 @@
 
 <style>
   input[type="text"],
+  input[type="url"],
   input[type="password"],
   textarea {
     width: 400px;
@@ -115,6 +116,45 @@
 
         <td>
           <textarea rows="5" name="ez_chatbot_knowledge"><?php echo esc_textarea($knowledge); ?></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <h2 style="margin-bottom: 0">
+            <?php _e('Webhook', 'ez-chatbot'); ?>
+          </h2>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          <?php _e('Enable', 'ez-chatbot'); ?>
+        </th>
+
+        <td>
+          <input type="hidden" name="ez_chatbot_webhook" value="0"/>
+          <input type="checkbox" name="ez_chatbot_webhook" value="1" <?php echo ($webhook ? 'checked' : ''); ?>/>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>
+          <?php _e('Webhook URL', 'ez-chatbot'); ?>
+        </th>
+
+        <td>
+          <input type="url" placeholder="https://example.com" pattern="https://.*" name="ez_chatbot_webhook_url" value="<?php echo esc_attr($webhook_url); ?>" />
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <?php _e('Headers', 'ez-chatbot'); ?>
+        </th>
+
+        <td>
+          <textarea rows="5" name="ez_chatbot_webhook_headers" placeholder="Content-Type: application/json"><?php echo esc_textarea($webhook_headers); ?></textarea>
         </td>
       </tr>
 

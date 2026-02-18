@@ -95,12 +95,16 @@ class EZChatbot {
 
   public function settings_page() {
     if (isset($_POST['submit'])) {
-      $enabled = $_POST['ez_chatbot_enabled'] === '1' ? true : false;
+      $chatbot_enabled = $_POST['ez_chatbot_enabled'] === '1' ? true : false;
+      $webhook_enabled = $_POST['ez_chatbot_webhook'] === '1' ? true : false;
 
-      update_option('ez_chatbot_enabled', $enabled);
+      update_option('ez_chatbot_enabled', $chatbot_enabled);
       update_option('ez_chatbot_image', sanitize_text_field($_POST['ez_chatbot_image']));
       update_option('ez_chatbot_name', sanitize_text_field($_POST['ez_chatbot_name']));
       update_option('ez_chatbot_color', $_POST['ez_chatbot_color']);
+      update_option('ez_chatbot_webhook', $webhook_enabled);
+      update_option('ez_chatbot_webhook_url', sanitize_url($_POST['ez_chatbot_webhook_url']));
+      update_option('ez_chatbot_webhook_headers', sanitize_textarea_field($_POST['ez_chatbot_webhook_headers']));
       update_option('ez_chatbot_system', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_system'])));
       update_option('ez_chatbot_knowledge', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_knowledge'])));
       update_option('ez_chatbot_welcome', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_welcome'])));
@@ -118,6 +122,9 @@ class EZChatbot {
     $image = get_option('ez_chatbot_image');
     $name = get_option('ez_chatbot_name');
     $color = get_option('ez_chatbot_color');
+    $webhook = get_option('ez_chatbot_webhook');
+    $webhook_url = get_option('ez_chatbot_webhook_url');
+    $webhook_headers = get_option('ez_chatbot_webhook_headers');
     $system = get_option('ez_chatbot_system');
     $system_default = "You are a chatbot. Do not answer questions that are not related to the knowledge assigned to you. Do not answer questions about world knowledge, famous people, etc. Before you can respond to the user on a topic, they must provide their name and email address. You must first ask for their name in one message and then ask for their email separately. If the user has already given their name, explicitly ask them for their email address. Use the 'get_user_name' function when the user writes a name. Use the 'get_user_email' function only if the user's message contains a valid email (with an '@' and appropriate formatting). Do not call a function if the data is invalid and ask the user to provide a correct value. If the user has already provided their name and email, you can answer their questions. Your knowledge is as follows:";
     $welcome = get_option('ez_chatbot_welcome');
@@ -315,8 +322,7 @@ class EZChatbot {
 
   public function create_conversation(WP_REST_Request $request) {
     $conversation = $request->get_json_params();
-
-    $args = array(
+    $history = new WP_Query(array(
       'post_type' => 'chat_conversation',
       'posts_per_page' => -1,
       'meta_query' => array(
@@ -325,9 +331,12 @@ class EZChatbot {
           'value' => $conversation['userData']['email']
         )
       )
-    );
+    ));
+    $webhook = get_option('ez_chatbot_webhook');
 
-    $history = new WP_Query($args);
+    if ($webhook) {
+      $this->send_webhook($conversation['userData']);
+    }
 
     if (!$history->have_posts()) {
       $conversation_id = wp_insert_post([
@@ -354,6 +363,53 @@ class EZChatbot {
 
         $this->save_message($message_json);
       }
+    }
+  }
+
+  private function send_webhook($data) {
+    $url = esc_url_raw(get_option('ez_chatbot_webhook_url'));
+    $headers = get_option('ez_chatbot_webhook_headers');
+
+    if (!$url) {
+      return;
+    }
+
+    if (!empty($headers)) {
+      $lines = explode("\n", $headers);
+      $clean_lines = array_filter(array_map('trim', $lines));
+      $headers_sanitized = array_filter(
+        array_map('sanitize_text_field', $clean_lines)
+      );
+
+      foreach ($headers_sanitized as $line) {
+        if (strpos($line, ':') !== false) {
+          list($key, $value) = explode(':', $line, 2);
+          
+          $headers_formatted[$key] = $value;
+        }
+      }
+    } else {
+      $headers_formatted = array();
+    }
+
+    $headers = array_merge(
+      array('Content-Type' => 'application/json'),
+      $headers_formatted
+    );
+    
+    $body = json_encode($data);
+
+    $response = wp_remote_post($url, [
+      'headers' => $headers,
+      'body' => $body,
+    ]);
+
+    if (is_wp_error($response)) {
+      return;
+    }
+
+    if ($response['response']['code'] !== 200) {
+      return;
     }
   }
 
