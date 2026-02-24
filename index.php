@@ -37,9 +37,7 @@ class EZChatbot {
     }
 
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'action_links'], 10, 2);
-    add_action('admin_menu', [$this, 'create_settings_page']);
-    add_action('admin_menu', [$this, 'create_conversations_page']);
-    add_action('admin_head', [$this, 'rename_settings_page']);
+    add_action('admin_menu', [$this, 'create_settings_pages']);
     add_action('admin_enqueue_scripts', [$this, 'load_media']);
     add_action('init', [$this, 'conversations_post_type']);
     add_action('wp_footer', [$this, 'create_element']);
@@ -63,7 +61,7 @@ class EZChatbot {
     return $links;
   }
 
-  public function create_settings_page() {
+  public function create_settings_pages() {
     add_menu_page(
       'EZ Chatbot',
       'EZ Chatbot',
@@ -72,9 +70,16 @@ class EZChatbot {
       [$this, 'settings_page'],
       plugin_dir_url(__FILE__) . 'dist/assets/icon.svg'
     );
-  }
 
-  public function create_conversations_page() {
+    add_submenu_page(
+      'ez-chatbot-settings',
+      __('Settings', 'ez-chatbot'),
+      __('Settings', 'ez-chatbot'),
+      'manage_options',
+      'ez-chatbot-settings',
+      [$this, 'settings_page'],
+    );
+
     add_submenu_page(
       'ez-chatbot-settings',
       __('Conversations', 'ez-chatbot'),
@@ -85,51 +90,75 @@ class EZChatbot {
     );
   }
 
-  public function rename_settings_page() {
-    global $submenu;
-
-    if (isset($submenu['ez-chatbot-settings'])) {
-      $submenu['ez-chatbot-settings'][0][0] = __('Settings', 'ez-chatbot');
-    }
-  }
-
   public function settings_page() {
-    if (isset($_POST['submit'])) {
-      $chatbot_enabled = $_POST['ez_chatbot_enabled'] === '1' ? true : false;
-      $webhook_enabled = $_POST['ez_chatbot_webhook'] === '1' ? true : false;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' &&
+        isset($_POST['submit']) &&
+        isset($_POST['ez_chatbot_nonce']) &&
+        wp_verify_nonce($_POST['ez_chatbot_nonce'], 'ez_chatbot_settings_action')) {
+      $post = wp_unslash($_POST);
 
-      update_option('ez_chatbot_enabled', $chatbot_enabled);
-      update_option('ez_chatbot_image', sanitize_text_field($_POST['ez_chatbot_image']));
-      update_option('ez_chatbot_name', sanitize_text_field($_POST['ez_chatbot_name']));
-      update_option('ez_chatbot_color', $_POST['ez_chatbot_color']);
-      update_option('ez_chatbot_webhook', $webhook_enabled);
-      update_option('ez_chatbot_webhook_url', sanitize_url($_POST['ez_chatbot_webhook_url']));
-      update_option('ez_chatbot_webhook_headers', sanitize_textarea_field($_POST['ez_chatbot_webhook_headers']));
-      update_option('ez_chatbot_system', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_system'])));
-      update_option('ez_chatbot_knowledge', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_knowledge'])));
-      update_option('ez_chatbot_welcome', sanitize_textarea_field(stripslashes($_POST['ez_chatbot_welcome'])));
+      $checkboxes = [
+        'ez_chatbot_enabled',
+        'ez_chatbot_webhook',
+      ];
 
-      if ($_POST['ez_chatbot_api_key'] === '') {
-        update_option('ez_chatbot_api_key', '');
-      } else {
-        $api_key = sanitize_text_field($_POST['ez_chatbot_api_key']);
+      foreach ($checkboxes as $checkbox) {
+        if(isset($post[$checkbox])) {
+          $value = !empty($post[$checkbox]) && $post[$checkbox] === '1';
+          update_option($checkbox, $value);
+        }
+      }
 
-        $this->set_api_key($api_key);
+      $fields = [
+        'ez_chatbot_image'           => 'sanitize_text_field',
+        'ez_chatbot_name'            => 'sanitize_text_field',
+        'ez_chatbot_color'           => 'sanitize_hex_color',
+        'ez_chatbot_webhook_url'     => 'esc_url_raw',
+        'ez_chatbot_webhook_headers' => 'sanitize_textarea_field',
+        'ez_chatbot_system'          => 'sanitize_textarea_field',
+        'ez_chatbot_knowledge'       => 'sanitize_textarea_field',
+        'ez_chatbot_welcome'         => 'sanitize_textarea_field',
+      ];
+
+      foreach ($fields as $option => $sanitize_callback) {
+        if (isset($post[$option])) {
+          update_option($option, $sanitize_callback($post[$option]));
+        }
+      }
+
+      if (isset($post['ez_chatbot_api_key'])) {
+        $api_key = sanitize_text_field($post['ez_chatbot_api_key']);
+
+        if ($api_key === '') {
+          update_option('ez_chatbot_api_key', '');
+        } else {
+          $this->set_api_key($api_key);
+        }
       }
     }
 
-    $enable = get_option('ez_chatbot_enabled');
-    $image = get_option('ez_chatbot_image');
-    $name = get_option('ez_chatbot_name');
-    $color = get_option('ez_chatbot_color');
-    $webhook = get_option('ez_chatbot_webhook');
-    $webhook_url = get_option('ez_chatbot_webhook_url');
-    $webhook_headers = get_option('ez_chatbot_webhook_headers');
-    $system = get_option('ez_chatbot_system');
+    $options = [
+      'enabled',
+      'image',
+      'name',
+      'color',
+      'webhook',
+      'webhook_url',
+      'webhook_headers',
+      'system',
+      'welcome',
+      'knowledge',
+    ];
+
+    $settings = [];
+
+    foreach ($options as $option) {
+      $settings[$option] = get_option('ez_chatbot_' . $option);
+    }
+
+    $settings['api_key'] = $this->get_api_key();
+
     $system_default = "You are a chatbot. Do not answer questions that are not related to the knowledge assigned to you. Do not answer questions about world knowledge, famous people, etc. Before you can respond to the user on a topic, they must provide their name and email address. You must first ask for their name in one message and then ask for their email separately. If the user has already given their name, explicitly ask them for their email address. Use the 'get_user_name' function when the user writes a name. Use the 'get_user_email' function only if the user's message contains a valid email (with an '@' and appropriate formatting). Do not call a function if the data is invalid and ask the user to provide a correct value. If the user has already provided their name and email, you can answer their questions. Your knowledge is as follows:";
-    $welcome = get_option('ez_chatbot_welcome');
-    $knowledge = get_option('ez_chatbot_knowledge');
-    $api_key = $this->get_api_key();
 
     require_once plugin_dir_path(__FILE__) . 'pages/settings.php';
   }
