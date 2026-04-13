@@ -218,8 +218,8 @@ class EZChatbot {
         'post_type' => 'chat_conversation',
         'posts_per_page' => -1,
         'post_status' => 'publish',
-        'orderby' => 'ID',
-        'order' => 'ASC'
+        'orderby' => 'post_date',
+        'order' => 'DESC'
       ]);
 
       require_once plugin_dir_path(__FILE__) . 'pages/conversations.php';
