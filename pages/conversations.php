@@ -146,18 +146,20 @@
 
                     <td><?= get_the_date("d-m-Y g:iA"); ?></td>
                     
-                    <td class="ez-chatbot__conversation-actions">
-                      <a href="<?= admin_url('admin.php?page=ez-chatbot-conversations&conversation_id=' . get_the_ID()); ?>" title="<?php _e('View', 'ez-chatbot') ?>">
-                        <i data-lucide="eye"></i>
-                      </a>
+                    <td>
+                      <div class="ez-chatbot__conversation-actions">
+                        <a href="<?= admin_url('admin.php?page=ez-chatbot-conversations&conversation_id=' . get_the_ID()); ?>" title="<?php _e('View', 'ez-chatbot') ?>">
+                          <i data-lucide="eye"></i>
+                        </a>
 
-                      <a href="<?= wp_nonce_url(admin_url('admin.php?page=ez-chatbot-conversations&download_conversation_id=' . get_the_ID()), 'download_conversation_' . get_the_ID()); ?>" title="<?php _e('Download', 'ez-chatbot') ?>">
-                        <i data-lucide="download"></i>
-                      </a>
+                        <a href="<?= wp_nonce_url(admin_url('admin.php?page=ez-chatbot-conversations&download_conversation_id=' . get_the_ID()), 'download_conversation_' . get_the_ID()); ?>" title="<?php _e('Download', 'ez-chatbot') ?>">
+                          <i data-lucide="download"></i>
+                        </a>
 
-                      <a href="<?= wp_nonce_url(admin_url('admin.php?page=ez-chatbot-conversations&delete_conversation_id=' . get_the_ID()), 'delete_conversation_' . get_the_ID()); ?>" onclick="return confirm('<?php _e('Are you sure you want to delete this conversation?', 'ez-chatbot'); ?>')" title="<?php _e('Delete', 'ez-chatbot') ?>">
-                        <i data-lucide="trash"></i>
-                      </a> 
+                        <a href="<?= wp_nonce_url(admin_url('admin.php?page=ez-chatbot-conversations&delete_conversation_id=' . get_the_ID()), 'delete_conversation_' . get_the_ID()); ?>" onclick="return confirm('<?php _e('Are you sure you want to delete this conversation?', 'ez-chatbot'); ?>')" title="<?php _e('Delete', 'ez-chatbot') ?>">
+                          <i data-lucide="trash"></i>
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 <?php endwhile; ?>
