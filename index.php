@@ -39,6 +39,7 @@ class EZChatbot {
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'action_links'], 10, 2);
     add_action('admin_menu', [$this, 'create_settings_pages']);
     add_action('admin_enqueue_scripts', [$this, 'load_media']);
+    add_action('admin_enqueue_scripts', [$this, 'settings_styles']);
     add_action('init', [$this, 'conversations_post_type']);
     add_action('wp_footer', [$this, 'create_element']);
     add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
@@ -157,14 +158,23 @@ class EZChatbot {
     }
 
     $settings['api_key'] = $this->get_api_key();
-
-    $system_default = "You are a chatbot. Do not answer questions that are not related to the knowledge assigned to you. Do not answer questions about world knowledge, famous people, etc. Before you can respond to the user on a topic, they must provide their name and email address. You must first ask for their name in one message and then ask for their email separately. If the user has already given their name, explicitly ask them for their email address. Use the 'get_user_name' function when the user writes a name. Use the 'get_user_email' function only if the user's message contains a valid email (with an '@' and appropriate formatting). Do not call a function if the data is invalid and ask the user to provide a correct value. If the user has already provided their name and email, you can answer their questions. Your knowledge is as follows:";
+    $settings['system_default'] = "You are a chatbot. Do not answer questions that are not related to the knowledge assigned to you. Do not answer questions about world knowledge, famous people, etc. Before you can respond to the user on a topic, they must provide their name and email address. You must first ask for their name in one message and then ask for their email separately. If the user has already given their name, explicitly ask them for their email address. Use the 'get_user_name' function when the user writes a name. Use the 'get_user_email' function only if the user's message contains a valid email (with an '@' and appropriate formatting). Do not call a function if the data is invalid and ask the user to provide a correct value. If the user has already provided their name and email, you can answer their questions. Your knowledge is as follows:";
 
     require_once plugin_dir_path(__FILE__) . 'pages/settings.php';
   }
 
   public function load_media() {
-    wp_enqueue_media();
+    wp_enqueue_media(); 
+  }
+
+  public function settings_styles($hook) {
+    if ($hook === 'toplevel_page_ez-chatbot-settings') {
+      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/settings.css', __FILE__), [], '1.2.1');
+      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/settings.js', __FILE__), [], '1.2.1');
+    } elseif($hook === 'ez-chatbot_page_ez-chatbot-conversations') {
+      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/conversations.css', __FILE__), [], '1.2.1');
+      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/conversations.js', __FILE__), [], '1.2.1');
+    }
   }
 
   private function set_api_key($api_key) {
@@ -214,16 +224,60 @@ class EZChatbot {
 
       require_once plugin_dir_path(__FILE__) . 'pages/conversation.php';
     } else {
-      $conversations = get_posts([
-        'post_type' => 'chat_conversation',
-        'posts_per_page' => -1,
-        'post_status' => 'publish',
-        'orderby' => 'post_date',
-        'order' => 'DESC'
-      ]);
-
       require_once plugin_dir_path(__FILE__) . 'pages/conversations.php';
     }
+  }
+
+  private function get_stats($post_type) {
+    $count_posts = function($start_date, $end_date) use ($post_type) {
+      $args = [
+        'post_type'      => $post_type,
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'date_query'     => [
+          [
+            'after'     => $start_date,
+            'before'    => $end_date,
+            'inclusive' => true,
+          ],
+        ],
+      ];
+      $query = new WP_Query($args);
+      return $query->found_posts;
+    };
+
+    $pct_change = function($current, $prev) {
+      if ($prev > 0) return round((($current - $prev) / $prev) * 100);
+      return $current > 0 ? 100 : 0;
+    };
+  
+    $month_current_start = date('Y-m-01 00:00:00');
+    $month_current_end   = date('Y-m-t 23:59:59');
+    $month_prev_start    = date('Y-m-01 00:00:00', strtotime('first day of last month'));
+    $month_prev_end      = date('Y-m-t 23:59:59', strtotime('last day of last month'));
+
+    $week_current_start = date('Y-m-d 00:00:00', strtotime('monday this week'));
+    $week_current_end   = date('Y-m-d 23:59:59', strtotime('sunday this week'));
+    $week_prev_start    = date('Y-m-d 00:00:00', strtotime('monday last week'));
+    $week_prev_end      = date('Y-m-d 23:59:59', strtotime('sunday last week'));
+
+    $stats = [
+      'total' => wp_count_posts($post_type)->publish,
+      'month' => [
+        'current' => $count_posts($month_current_start, $month_current_end),
+        'prev'    => $count_posts($month_prev_start, $month_prev_end),
+      ],
+      'week' => [
+        'current' => $count_posts($week_current_start, $week_current_end),
+        'prev'    => $count_posts($week_prev_start, $week_prev_end),
+      ],
+    ];
+
+    $stats['month']['comparison'] = $pct_change($stats['month']['current'], $stats['month']['prev']);
+    $stats['week']['comparison'] = $pct_change($stats['week']['current'],  $stats['week']['prev']);
+
+    return $stats;
   }
 
   private function download_conversation($nonce, $conversation_id) {
@@ -312,7 +366,7 @@ class EZChatbot {
 
   public function enqueue_scripts() {
     // Scripts
-    wp_register_script('ez_chatbot', plugins_url('/dist/assets/index.js', __FILE__), [], '1.1.1', true);
+    wp_register_script_module('ez_chatbot', plugins_url('/dist/assets/index.js', __FILE__), [], '2.0.0');
     wp_localize_script('ez_chatbot', 'ez_chatbot_settings', [
       "base_url" => home_url(),
       "assets_url" => plugins_url('/dist', __FILE__),
@@ -323,7 +377,7 @@ class EZChatbot {
       "welcome" => get_option('ez_chatbot_welcome'),
       "placeholder" => __('What can I help you with?', 'ez-chatbot')
     ]);
-    wp_enqueue_script('ez_chatbot');
+    wp_enqueue_script_module('ez_chatbot');
 
     // Styles
     wp_enqueue_style('ez_chatbot', plugins_url('/dist/assets/index.css', __FILE__), [], '1.0.0');

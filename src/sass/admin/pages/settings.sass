@@ -1,0 +1,146 @@
+// Base
+@use '@/base/fonts'
+@use '@/base/vars'
+@use '@/frontend/index'
+
+// Components
+@use '@/admin/components/header'
+@use '@/admin/components/button'
+@use '@/admin/components/switch'
+
+*
+  box-sizing: border-box
+
+#wpcontent
+  padding-left: 0
+
+  #wpbody-content
+    padding: 0
+
+#wpfooter
+  display: none
+
+.container
+  width: min(520px, calc(90% - 30px))
+  margin: 0 auto
+  text-align: left
+
+.ez-chatbot__admin
+  .ez-chatbot__admin-col
+    &.settings
+      transform: translateZ(0)
+
+      @media (max-width: 1080px)
+        width: 100%
+  
+    & > header
+      .ez-chatbot__admin-tabs
+        display: flex
+        gap: 5px
+        margin: 0
+        
+        .ez-chatbot__admin-tab
+          background: #d5d5d5
+          padding: 15px 20px
+          border-top:
+            left-radius: 5px
+            right-radius: 5px
+          font-weight: normal
+          color: black
+          text-decoration: none
+
+          @media (max-width: 1220px)
+            padding: 15px
+            font-size: 14px
+
+          &.active
+            background: white
+
+          &:focus
+            box-shadow: none
+
+    main
+      background: white
+      flex: 1
+      overflow: scroll
+
+    .ez-chatbot__admin-content
+      padding: 50px 0
+
+      form
+        display: grid
+        grid-template-columns: auto 1fr
+        align-items: center
+        gap: 20px 40px
+
+        fieldset
+          display: contents
+
+          p
+            margin: 0
+            font-size: 16px
+
+            &:has(+ .input textarea)
+              align-self: flex-start
+
+          .input
+            display: flex
+            align-items: center
+            gap: 15px
+
+            input[type="text"],
+            input[type="url"],
+            input[type="password"],
+            textarea
+              width: 100%
+              border-radius: 5px
+              border-color: #d5d5d5
+              outline: none
+              font-size: 16px
+              transition: border-color 0.3s ease
+              
+              &:focus
+                border-color: black
+                box-shadow: none
+
+            .ez_chatbot_image
+              width: 37px
+              aspect-ratio: 1
+              border-radius: 100%
+
+              @media (min-width: 1080px)
+                display: none
+
+        .submit
+          position: fixed
+          padding: 0
+          margin: 0
+          bottom: 30px
+          right: 30px
+          transition: all 0.3s ease
+
+          &:not(.active)
+            opacity: 0.3
+            pointer-events: none
+
+          input
+            @extend .ez-chatbot__button
+            box-shadow: none
+            font-size: 14px
+            line-height: 1
+
+    &.preview
+      display: grid
+      place-items: center
+      background: #d5d5d5
+
+      @media (max-width: 1080px)
+        display: none
+
+      #ez-chatbot-wrapper
+        .chatbot__widget
+          position: static
+          transform: translateY(6%)
+          
+          input
+            box-shadow: none

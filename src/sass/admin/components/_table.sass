@@ -1,0 +1,34 @@
+table
+  width: 100%
+  background: none
+  border: none
+  font-size: 14px
+
+  thead
+    font-weight: bold
+
+  tr
+    th, td
+      background: none
+      padding: 20px 0
+      border: none
+      border-bottom: solid 1px #e6e6e6
+
+      .link
+        display: flex
+        align-items: center
+        gap: 5px
+        
+        svg
+          width: 12px
+          height: auto
+
+      a
+        color: initial
+        text-decoration: none
+
+        &[href*='mailto:']
+          text-decoration: underline
+    
+    th
+      text-align: left

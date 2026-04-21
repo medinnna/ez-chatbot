@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ez-chatbot 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
-"POT-Creation-Date: 2026-04-20T20:30:12+00:00\n"
-"PO-Revision-Date: 2026-04-20 14:30-0600\n"
+"POT-Creation-Date: 2026-04-20T20:16:21+00:00\n"
+"PO-Revision-Date: 2026-04-20 14:16-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -61,27 +61,27 @@ msgstr "Conversaciones"
 msgid "Chat Conversation"
 msgstr "Conversación"
 
-#: index.php:285
+#: index.php:280
 msgid "You do not have permission to download this conversation."
 msgstr "No tienes permisos para descargar esta conversación."
 
-#: index.php:294 pages/conversation.php:65
+#: index.php:289 pages/conversation.php:65
 msgid "Sender"
 msgstr "Remitente"
 
-#: index.php:295 pages/conversation.php:66
+#: index.php:290 pages/conversation.php:66
 msgid "Message"
 msgstr "Mensaje"
 
-#: index.php:296 pages/conversation.php:67 pages/conversations.php:128
+#: index.php:291 pages/conversation.php:67 pages/conversations.php:128
 msgid "Date"
 msgstr "Fecha"
 
-#: index.php:337
+#: index.php:332
 msgid "You do not have permission to delete this conversation."
 msgstr "No tienes permisos para eliminar esta conversación."
 
-#: index.php:378 pages/settings.php:231
+#: index.php:373 pages/settings.php:231
 msgid "What can I help you with?"
 msgstr "¿En qué te puedo ayudar?"
 
@@ -100,10 +100,6 @@ msgstr "Configuración avanzada"
 #: pages/conversation.php:18
 msgid "Conversation details"
 msgstr "Detalles de la conversación"
-
-#: pages/conversations.php:27
-msgid "Search conversation"
-msgstr "Buscar conversación"
 
 #: pages/conversations.php:83
 msgid "Total conversations"
@@ -214,6 +210,9 @@ msgstr ""
 #: pages/settings.php:162
 msgid "System prompt"
 msgstr "Prompt del sistema"
+
+#~ msgid "Back to conversations"
+#~ msgstr "Volver a conversaciones"
 
 #~ msgid "EZ Chatbot Conversations"
 #~ msgstr "EZ Chatbot - Conversaciones"

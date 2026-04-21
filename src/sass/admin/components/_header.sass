@@ -1,0 +1,38 @@
+.ez-chatbot__admin
+  display: flex
+  width: 100%
+  height: calc(100svh - var(--wp-admin--admin-bar--height))
+  font-family: var(--figtree)
+  line-height: 1
+
+  .ez-chatbot__admin-col
+    display: flex
+    flex-direction: column
+    flex: 1
+  
+    & > header
+      display: flex
+      flex-direction: column
+      gap: 10px
+      margin-top: 20svh
+
+      h1
+        display: flex
+        align-items: flex-start
+        margin: 0
+        gap: 5px
+        font:
+          size: 64px
+          weight: normal
+
+        sup
+          display: inline-block
+          font-size: 16px
+
+      h2
+        margin: 0
+        margin-bottom: 30px
+        color: #999999
+        font:
+          size: 24px
+          weight: normal

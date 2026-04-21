@@ -1,0 +1,27 @@
+.ez-chatbot__switch
+  display: block
+  background: white
+  width: 42px
+  height: 24px
+  padding: 2px
+  border-radius: 100px
+  border: 1px solid #d5d5d5
+  transition: background 0.3s ease
+  cursor: pointer
+
+  &:has(~ input[type="checkbox"]:checked)
+    background: black
+
+    .ez-chatbot__switch-toggle
+      background: white
+      transform: translateX(100%)
+
+  & ~ input[type="checkbox"]
+    display: none
+
+  .ez-chatbot__switch-toggle
+    background: black
+    aspect-ratio: 1
+    height: 100%
+    border-radius: 100%
+    transition: all 0.3s ease

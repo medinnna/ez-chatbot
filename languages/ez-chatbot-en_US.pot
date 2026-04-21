@@ -1,21 +1,25 @@
-# Copyright (C) 2025 Carlos Medina
+# Copyright (C) 2026 Carlos Medina
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: EZ Chatbot 1.2.0\n"
+"Project-Id-Version: EZ Chatbot 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ez-chatbot\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-01T07:02:58+00:00\n"
+"POT-Creation-Date: 2026-04-20T20:30:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ez-chatbot\n"
 
 #. Plugin Name of the plugin
 #: index.php
+#: pages/components/header.php:13
+#: pages/conversation.php:17
+#: pages/conversations.php:17
+#: pages/settings.php:12
 msgid "EZ Chatbot"
 msgstr ""
 
@@ -39,144 +43,186 @@ msgstr ""
 msgid "https://medina.dev"
 msgstr ""
 
-#: index.php:58
-#: index.php:92
+#: index.php:57
+#: index.php:77
+#: index.php:78
+#: pages/settings.php:13
 msgid "Settings"
 msgstr ""
 
-#: index.php:80
-#: index.php:81
+#: index.php:86
+#: index.php:87
+#: pages/conversations.php:18
 msgid "Conversations"
 msgstr ""
 
-#: index.php:162
+#: index.php:208
 msgid "Chat Conversations"
 msgstr ""
 
-#: index.php:163
+#: index.php:209
 msgid "Chat Conversation"
 msgstr ""
 
-#: index.php:195
+#: index.php:285
 msgid "You do not have permission to download this conversation."
 msgstr ""
 
-#: index.php:204
-#: pages/conversation.php:18
+#: index.php:294
+#: pages/conversation.php:65
 msgid "Sender"
 msgstr ""
 
-#: index.php:205
-#: pages/conversation.php:19
+#: index.php:295
+#: pages/conversation.php:66
 msgid "Message"
 msgstr ""
 
-#: index.php:206
-#: pages/conversation.php:20
-#: pages/conversations.php:24
+#: index.php:296
+#: pages/conversation.php:67
+#: pages/conversations.php:128
 msgid "Date"
 msgstr ""
 
-#: index.php:247
+#: index.php:337
 msgid "You do not have permission to delete this conversation."
 msgstr ""
 
-#: index.php:288
+#: index.php:378
+#: pages/settings.php:231
 msgid "What can I help you with?"
 msgstr ""
 
-#: pages/conversation.php:5
-msgid "Conversation Details"
+#: pages/components/header.php:23
+#: pages/settings.php:22
+msgid "Appearance"
 msgstr ""
 
-#: pages/conversation.php:9
-msgid "Back to conversations"
+#: pages/components/header.php:28
+#: pages/settings.php:27
+msgid "Webhook"
 msgstr ""
 
-#: pages/conversations.php:16
-msgid "EZ Chatbot Conversations"
+#: pages/components/header.php:33
+#: pages/settings.php:32
+msgid "Advanced settings"
 msgstr ""
 
-#: pages/conversations.php:22
+#: pages/conversation.php:18
+msgid "Conversation details"
+msgstr ""
+
+#: pages/conversations.php:27
+msgid "Search conversation"
+msgstr ""
+
+#: pages/conversations.php:83
+msgid "Total conversations"
+msgstr ""
+
+#: pages/conversations.php:89
+msgid "This month"
+msgstr ""
+
+#: pages/conversations.php:101
+msgid "from last month"
+msgstr ""
+
+#: pages/conversations.php:105
+msgid "This week"
+msgstr ""
+
+#: pages/conversations.php:117
+msgid "from last week"
+msgstr ""
+
+#: pages/conversations.php:126
 msgid "Name"
 msgstr ""
 
-#: pages/conversations.php:23
+#: pages/conversations.php:127
 msgid "Email"
 msgstr ""
 
-#: pages/conversations.php:25
+#: pages/conversations.php:129
 msgid "Actions"
 msgstr ""
 
-#: pages/conversations.php:37
+#: pages/conversations.php:151
 msgid "View"
 msgstr ""
 
-#: pages/conversations.php:43
+#: pages/conversations.php:155
 msgid "Download"
 msgstr ""
 
-#: pages/conversations.php:48
+#: pages/conversations.php:158
 msgid "Are you sure you want to delete this conversation?"
 msgstr ""
 
-#: pages/conversations.php:49
+#: pages/conversations.php:159
 msgid "Delete"
 msgstr ""
 
-#: pages/conversations.php:58
+#: pages/conversations.php:168
 msgid "No conversations found"
 msgstr ""
 
-#: pages/settings.php:45
-msgid "EZ Chatbot - Settings"
-msgstr ""
-
-#: pages/settings.php:52
-msgid "Customization"
-msgstr ""
-
-#: pages/settings.php:59
+#: pages/settings.php:48
+msgctxt "visibility"
 msgid "Enable"
 msgstr ""
 
-#: pages/settings.php:70
+#: pages/settings.php:61
 msgid "Profile image"
 msgstr ""
 
-#: pages/settings.php:77
-msgid "Upload image"
+#: pages/settings.php:65
+msgid "Select image"
 msgstr ""
 
-#: pages/settings.php:83
+#: pages/settings.php:65
+msgid "Replace image"
+msgstr ""
+
+#: pages/settings.php:73
 msgid "Profile name"
 msgstr ""
 
-#: pages/settings.php:93
+#: pages/settings.php:83
 msgid "Color"
 msgstr ""
 
-#: pages/settings.php:103
+#: pages/settings.php:93
 msgid "Welcome message"
 msgstr ""
 
-#: pages/settings.php:107
+#: pages/settings.php:97
+#: pages/settings.php:215
 msgid "Hi! I'm your virtual assistant. What can I help you with?"
 msgstr ""
 
-#: pages/settings.php:113
+#: pages/settings.php:103
 msgid "Knowledge"
 msgstr ""
 
-#: pages/settings.php:124
-msgid "Advanced settings (Caution!)"
+#: pages/settings.php:113
+msgctxt "activation"
+msgid "Enable"
 msgstr ""
 
-#: pages/settings.php:131
+#: pages/settings.php:128
+msgid "Webhook URL"
+msgstr ""
+
+#: pages/settings.php:138
+msgid "Headers"
+msgstr ""
+
+#: pages/settings.php:148
 msgid "Open AI API Key"
 msgstr ""
 
-#: pages/settings.php:145
+#: pages/settings.php:162
 msgid "System prompt"
 msgstr ""

@@ -1,196 +1,235 @@
-<?php defined('ABSPATH') or die(); ?>
+<?php
+  defined('ABSPATH') or die();
+  $active_tab = $_GET['tab'] ?? 'Appearance';
+?>
 
-<style>
-  input[type="text"],
-  input[type="url"],
-  input[type="password"],
-  textarea {
-    width: 400px;
-    max-width: 80%;
-  }
+<div class="ez-chatbot__admin">
+  <div class="ez-chatbot__admin-col settings">
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1><?php _e('EZ Chatbot', 'ez-chatbot'); ?><sup>v2.0.0</sup></h1>
+            <h2><?= __('Settings', 'ez-chatbot'); ?></h2>
+          </div>
+        </div>
 
-  .ez_chatbot_image {
-    display: block;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+        <div class="row">
+          <div class="col">
+            <h3 class="ez-chatbot__admin-tabs">
+              <a href="?page=ez-chatbot-settings&tab=Appearance"
+                class="ez-chatbot__admin-tab <?php echo $active_tab === 'Appearance' ? 'active' : ''; ?>">
+                <?php _e('Appearance', 'ez-chatbot'); ?>
+              </a>
 
-    &.hidden {
-      display: none;
-    }
-  }
-</style>
+              <a href="?page=ez-chatbot-settings&tab=webhook"
+                class="ez-chatbot__admin-tab <?php echo $active_tab === 'webhook' ? 'active' : ''; ?>">
+                <?php _e('Webhook', 'ez-chatbot'); ?>
+              </a>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.ez_chatbot_image_select').addEventListener('click', function(e) {
-      const image = wp.media({
-        title: 'Subir Imagen',
-        multiple: false
-      }).open().on('select', function(e) {
-        const uploaded_image = image.state().get('selection').first();
-        const ez_chatbot_image = document.querySelector('.ez_chatbot_image');
-        const ez_chatbot_image_upload = document.querySelector('.ez_chatbot_image_upload');
+              <a href="?page=ez-chatbot-settings&tab=advanced"
+                class="ez-chatbot__admin-tab <?php echo $active_tab === 'advanced' ? 'active' : ''; ?>">
+                <?php _e('Advanced settings', 'ez-chatbot'); ?>
+              </a>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </header>
 
-        ez_chatbot_image.src = uploaded_image.toJSON().url;
-        ez_chatbot_image.classList.remove("hidden");
-        ez_chatbot_image_upload.value = uploaded_image.toJSON().url;
-      });
+    <main>
+      <div class="container">
+        <div class="ez-chatbot__admin-content">
+          <form method="post" action="">
+            <?php wp_nonce_field('ez_chatbot_settings_action', 'ez_chatbot_nonce') ?>
+            
+            <?php if ($active_tab === 'Appearance') : ?>
+              <fieldset>
+                <p><?= esc_html_x('Enable', 'visibility', 'ez-chatbot'); ?></p>
 
-      e.preventDefault();
-    });
-  });
-</script>
+                <div class="input">
+                  <label class="ez-chatbot__switch" for="ez_chatbot_enabled">
+                    <div class="ez-chatbot__switch-toggle"></div>
+                  </label>
+                  
+                  <input type="hidden" name="ez_chatbot_enabled" value="0">
+                  <input type="checkbox" name="ez_chatbot_enabled" id="ez_chatbot_enabled" value="1" <?php echo ($settings['enabled'] ? 'checked' : ''); ?> />
+                </div>
+              </fieldset>
 
-<div class="wrap">
-  <h1><?php _e('EZ Chatbot - Settings', 'ez-chatbot'); ?></h1>
+              <fieldset>
+                <p><?php _e('Profile image', 'ez-chatbot'); ?></p>
 
-  <form method="post" action="">
-    <table class="form-table">
-      <tr>
-        <th>
-          <h2 style="margin-bottom: 0">
-            <?php _e('Customization', 'ez-chatbot'); ?>
-          </h2>
-        </th>
-      </tr>
+                <div class="input">
+                  <input type="hidden" class="ez_chatbot_image_upload" name="ez_chatbot_image" value="<?php echo esc_attr($settings['image']); ?>">
+                  <input type="button" class="ez_chatbot_image_select ez-chatbot__button" value="<?= empty($settings['image']) ? esc_html_e('Select image', 'ez-chatbot') : esc_html_e('Replace image', 'ez-chatbot'); ?>" />
 
-      <tr>
-        <th>
-          <?php _e('Enable', 'ez-chatbot'); ?>
-        </th>
+                  <img src="<?php echo esc_attr($settings['image']); ?>" class="ez_chatbot_image <?php echo (empty($settings['image']) ? 'hidden' : ''); ?>" alt="EZ Chatbot Image" />
+                </div>
+              </fieldset>
 
-        <td>
-          <input type="hidden" name="ez_chatbot_enabled" value="0">
-          <input type="checkbox" name="ez_chatbot_enabled" value="1" <?php echo ($enable ? 'checked' : ''); ?> />
-        </td>
-      </tr>
+              <fieldset>
+                <p>
+                  <?php _e('Profile name', 'ez-chatbot'); ?>
+                </p>
 
-      <tr>
-        <th>
-          <?php _e('Profile image', 'ez-chatbot'); ?>
-        </th>
+                <div class="input">
+                  <input type="text" name="ez_chatbot_name" id="ez_chatbot_profile_name" value="<?php echo (empty($settings['name']) ? 'EZ Chatbot' : esc_attr($settings['name'])); ?>" placeholder="Chatbot" />
+                </div>
+              </fieldset>
 
-        <td>
-          <img src="<?php echo esc_attr($image); ?>" class="ez_chatbot_image <?php echo (empty($image) ? 'hidden' : ''); ?>" alt="EZ Chatbot Image" />
+              <fieldset>
+                <p>
+                  <?php _e('Color', 'ez-chatbot'); ?>
+                </p>
 
-          <input type="hidden" class="ez_chatbot_image_upload" name="ez_chatbot_image" value="<?php echo esc_attr($image); ?>">
-          <input type="button" class="ez_chatbot_image_select" value="<?php esc_html_e('Upload image', 'ez-chatbot'); ?>" />
-        </td>
-      </tr>
+                <div class="input">
+                  <input type="color" name="ez_chatbot_color" id="ez_chatbot_color" value="<?php echo esc_attr($settings['color']); ?>" />
+                </div>
+              </fieldset>
 
-      <tr>
-        <th>
-          <?php _e('Profile name', 'ez-chatbot'); ?>
-        </th>
+              <fieldset>
+                <p>
+                  <?php _e('Welcome message', 'ez-chatbot'); ?>
+                </p>
 
-        <td>
-          <input type="text" name="ez_chatbot_name" value="<?php echo (empty($name) ? 'EZ Chatbot' : esc_attr($name)); ?>" placeholder="Chatbot" />
-        </td>
-      </tr>
+                <div class="input">
+                  <textarea rows="5" name="ez_chatbot_welcome" id="ez_chatbot_welcome"><?php echo (empty($settings['welcome']) ? _e("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : esc_textarea($settings['welcome'])); ?></textarea>
+                </div>
+              </fieldset>
 
-      <tr>
-        <th>
-          <?php _e('Color', 'ez-chatbot'); ?>
-        </th>
+              <fieldset>
+                <p>
+                  <?php _e('Knowledge', 'ez-chatbot'); ?>
+                </p>
 
-        <td>
-          <input type="color" name="ez_chatbot_color" value="<?php echo esc_attr($color); ?>" />
-        </td>
-      </tr>
+                <div class="input">
+                  <textarea rows="5" name="ez_chatbot_knowledge" id="ez_chatbot_knowledge"><?php echo esc_textarea($settings['knowledge']); ?></textarea>
+                </div>
+              </fieldset>
+            <?php elseif ($active_tab === 'webhook') : ?>
+              <fieldset>
+                <p>
+                  <?= esc_html_x('Enable', 'activation', 'ez-chatbot'); ?>
+                </p>
 
-      <tr>
-        <th>
-          <?php _e('Welcome message', 'ez-chatbot'); ?>
-        </th>
+                <div class="input">
+                  <label class="ez-chatbot__switch" for="ez_chatbot_webhook">
+                    <div class="ez-chatbot__switch-toggle"></div>
+                  </label>
 
-        <td>
-          <textarea rows="5" name="ez_chatbot_welcome"><?php echo (empty($welcome) ? _e("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : esc_textarea($welcome)); ?></textarea>
-        </td>
-      </tr>
+                  <input type="hidden" name="ez_chatbot_webhook" value="0"/>
+                  <input type="checkbox" name="ez_chatbot_webhook" id="ez_chatbot_webhook" value="1" <?php echo ($settings['webhook'] ? 'checked' : ''); ?>/>
+                </div>
+              </fieldset>
+              
+              <fieldset>
+                <p>
+                  <?php _e('Webhook URL', 'ez-chatbot'); ?>
+                </p>
 
-      <tr>
-        <th>
-          <?php _e('Knowledge', 'ez-chatbot'); ?>
-        </th>
+                <div class="input">
+                  <input type="url" placeholder="https://example.com" pattern="https://.*" name="ez_chatbot_webhook_url" value="<?php echo esc_attr($settings['webhook_url']); ?>" />
+                </div>
+              </fieldset>
 
-        <td>
-          <textarea rows="5" name="ez_chatbot_knowledge"><?php echo esc_textarea($knowledge); ?></textarea>
-        </td>
-      </tr>
+              <fieldset>
+                <p>
+                  <?php _e('Headers', 'ez-chatbot'); ?>
+                </p>
 
-      <tr>
-        <th>
-          <h2 style="margin-bottom: 0">
-            <?php _e('Webhook', 'ez-chatbot'); ?>
-          </h2>
-        </th>
-      </tr>
+                <div class="input">
+                  <textarea rows="5" name="ez_chatbot_webhook_headers" placeholder="Content-Type: application/json"><?php echo esc_textarea($settings['webhook_headers']); ?></textarea>
+                </div>
+              </fieldset>
+            <?php elseif ($active_tab === 'advanced') : ?>
+              <fieldset>
+                <p>
+                  <?php _e('Open AI API Key', 'ez-chatbot'); ?>
+                </p>
 
-      <tr>
-        <th>
-          <?php _e('Enable', 'ez-chatbot'); ?>
-        </th>
+                <div class="input">
+                  <?php if ($settings['api_key'] === ''): ?>
+                    <input type="text" name="ez_chatbot_api_key" />
+                  <?php else: ?>
+                    <input type="password" name="ez_chatbot_api_key" value="<?php echo esc_attr($settings['api_key']); ?>" />
+                  <?php endif; ?>
+                </div>
+              </fieldset>
 
-        <td>
-          <input type="hidden" name="ez_chatbot_webhook" value="0"/>
-          <input type="checkbox" name="ez_chatbot_webhook" value="1" <?php echo ($webhook ? 'checked' : ''); ?>/>
-        </td>
-      </tr>
-      
-      <tr>
-        <th>
-          <?php _e('Webhook URL', 'ez-chatbot'); ?>
-        </th>
+              <fieldset>
+                <p>
+                  <?php _e('System prompt', 'ez-chatbot'); ?>
+                </p>
 
-        <td>
-          <input type="url" placeholder="https://example.com" pattern="https://.*" name="ez_chatbot_webhook_url" value="<?php echo esc_attr($webhook_url); ?>" />
-        </td>
-      </tr>
+                <div class="input">
+                  <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea(!empty($settings['system']) ? $settings['system'] : $settings['system_default']); ?></textarea>
+                </div>
+              </fieldset>
+            <?php endif; ?>
 
-      <tr>
-        <th>
-          <?php _e('Headers', 'ez-chatbot'); ?>
-        </th>
+            <?php submit_button(); ?>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
 
-        <td>
-          <textarea rows="5" name="ez_chatbot_webhook_headers" placeholder="Content-Type: application/json"><?php echo esc_textarea($webhook_headers); ?></textarea>
-        </td>
-      </tr>
+  <div class="ez-chatbot__admin-col preview">
+    <div class="ez-chatbot-admin-preview">
+      <div id="ez-chatbot-wrapper">
+        <div class="chatbot__widget" style="--color: <?= $settings['color'] ? $settings['color'] : '#000000'; ?>">
+          <div class="chatbot__widget-window">
+            <header>
+              <img
+                class="profile"
+                alt="Profile image of the chatbot"
+                src="<?= $settings['image'] ? $settings['image'] : plugins_url('../dist/assets/profile.png', __FILE__); ?>"
+              />
 
-      <tr>
-        <th>
-          <h2 style="margin-bottom: 0">
-            <?php _e('Advanced settings (Caution!)', 'ez-chatbot'); ?>
-          </h2>
-        </th>
-      </tr>
+              <p aria-label="Chatbot name: EZ Chatbot">
+                <?php echo (empty($settings['name']) ? 'EZ Chatbot' : esc_attr($settings['name'])); ?>
+              </p>
 
-      <tr>
-        <th>
-          <?php _e('Open AI API Key', 'ez-chatbot'); ?>
-        </th>
+              <i data-lucide="x" class="close"></i>
+            </header>
 
-        <td>
-          <?php if ($api_key === ''): ?>
-            <input type="text" name="ez_chatbot_api_key" />
-          <?php else: ?>
-            <input type="password" name="ez_chatbot_api_key" value="<?php echo esc_attr($api_key); ?>" />
-          <?php endif; ?>
-        </td>
-      </tr>
+            <main>
+              <div class="messages">
+                <div class="message assistant">
+                  <p><?php echo (empty($settings['welcome']) ? _e("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : esc_textarea($settings['welcome'])); ?></p>
+                </div>
+              </div>
 
-      <tr>
-        <th>
-          <?php _e('System prompt', 'ez-chatbot'); ?>
-        </th>
+              <div class="loading" style="display: none">
+                <div class="dots">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+              </div>
+            </main>
 
-        <td>
-          <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea(!empty($system) ? $system : $system_default); ?></textarea>
-        </td>
-      </tr>
-    </table>
+            <footer>
+              <form>
+                <input
+                  placeholder="<?php esc_attr_e('What can I help you with?', 'ez-chatbot'); ?>"
+                  type="text"
+                  value=""
+                />
+                
+                <button type="submit" disabled="">
+                  <i data-lucide="send" class="send" width="15"></i>
+                </button>
+              </form>
+            </footer>
+          </div>
 
-    <?php submit_button(); ?>
-  </form>
+          <div class="chatbot__widget-btn">
+            <i data-lucide="message-square"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
