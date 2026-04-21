@@ -4,7 +4,7 @@
   Plugin URI: https://github.com/medinnna/ez-chatbot
   Description: EZ Chatbot is a WordPress plugin that allows you to create a custom chatbot for your website using the OpenAI API.
   Text Domain: ez-chatbot
-  Version: 1.2.1
+  Version: 2.0.0
   Author: Carlos Medina
   Author URI: https://medina.dev
   License: GPL v3 or later
@@ -169,11 +169,11 @@ class EZChatbot {
 
   public function settings_styles($hook) {
     if ($hook === 'toplevel_page_ez-chatbot-settings') {
-      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/settings.css', __FILE__), [], '1.2.1');
-      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/settings.js', __FILE__), [], '1.2.1');
+      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/settings.css', __FILE__), [], '2.0.0');
+      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/settings.js', __FILE__), [], '2.0.0');
     } elseif($hook === 'ez-chatbot_page_ez-chatbot-conversations') {
-      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/conversations.css', __FILE__), [], '1.2.1');
-      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/conversations.js', __FILE__), [], '1.2.1');
+      wp_enqueue_style('ez_chatbot_admin', plugins_url('/dist/assets/conversations.css', __FILE__), [], '2.0.0');
+      wp_enqueue_script_module('ez_chatbot_admin', plugins_url('/dist/assets/conversations.js', __FILE__), [], '2.0.0');
     }
   }
 
