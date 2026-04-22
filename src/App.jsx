@@ -133,11 +133,7 @@ function App() {
             <header>
               <img
                 className="profile"
-                src={
-                  chatbotSettings.image
-                    ? chatbotSettings.image
-                    : chatbotSettings.assets_url + profileImage
-                }
+                src={chatbotSettings.image || profileImage}
                 alt="Profile image of the chatbot"
               />
 
