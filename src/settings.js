@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const imageBtn = document.querySelector('.ez_chatbot_image_select')
   const imageField = document.querySelector('.ez_chatbot_image_upload')
   const imagePreview = chatbotWrapper.querySelector('.profile')
-  const imagePreview2 = document.querySelector('.ez_chatbot_image')
   const profileName = document.querySelector('#ez_chatbot_profile_name')
   const profileNamePreview = chatbotWrapper.querySelector('header p')
   const colorField = document.querySelector('#ez_chatbot_color')
@@ -34,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const imageSelected = image.state().get('selection').first()
 
         imagePreview.src = imageSelected.toJSON().url
-        imagePreview2.src = imageSelected.toJSON().url
-        imagePreview2.classList.remove('hidden')
         imageField.value = imageSelected.toJSON().url
         submitBtn.classList.add('active')
       })

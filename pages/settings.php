@@ -76,8 +76,6 @@
                 <div class="input">
                   <input type="hidden" class="ez_chatbot_image_upload" name="ez_chatbot_image" value="<?php echo esc_attr($settings['image']); ?>">
                   <input type="button" class="ez_chatbot_image_select ez-chatbot__button" value="<?= empty($settings['image']) ? esc_html_e('Select image', 'ez-chatbot') : esc_html_e('Replace image', 'ez-chatbot'); ?>" />
-
-                  <img src="<?php echo esc_attr($settings['image']); ?>" class="ez_chatbot_image <?php echo (empty($settings['image']) ? 'hidden' : ''); ?>" alt="EZ Chatbot Image" />
                 </div>
               </fieldset>
 
@@ -197,7 +195,7 @@
               <img
                 class="profile"
                 alt="Profile image of the chatbot"
-                src="<?= $settings['image'] ? $settings['image'] : plugins_url('../dist/assets/profile.png', __FILE__); ?>"
+                src="<?= $settings['image'] ?: plugins_url('../dist/assets/profile.png', __FILE__); ?>"
               />
 
               <p aria-label="Chatbot name: EZ Chatbot">
