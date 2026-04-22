@@ -72,7 +72,7 @@
               <?php foreach ($messages as $message): ?>
                 <tr>
                   <td><?= $message['sender']; ?></td>
-                  <td><?= $message['message']; ?></td>
+                  <td class="message"><?= $message['message']; ?></td>
                   <td><?= date("d-m-Y g:iA", strtotime($message['timestamp'])); ?></td>
                 </tr>
               <?php endforeach; ?>
