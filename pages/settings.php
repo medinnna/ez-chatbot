@@ -210,7 +210,7 @@
             <main>
               <div class="messages">
                 <div class="message assistant">
-                  <p><?php echo (empty($settings['welcome']) ? _e("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : esc_textarea($settings['welcome'])); ?></p>
+                  <p><?= (empty($settings['welcome']) ? esc_html__("Hi! I'm your virtual assistant. What can I help you with?", 'ez-chatbot') : nl2br(esc_html($settings['welcome']))); ?></p>
                 </div>
               </div>
 
