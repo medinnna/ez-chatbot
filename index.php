@@ -367,17 +367,20 @@ class EZChatbot {
   public function enqueue_scripts() {
     // Scripts
     wp_register_script_module('ez_chatbot', plugins_url('/dist/assets/index.js', __FILE__), [], '2.0.0');
-    wp_localize_script('ez_chatbot', 'ez_chatbot_settings', [
-      "base_url" => home_url(),
-      "assets_url" => plugins_url('/dist', __FILE__),
-      "enabled" => get_option('ez_chatbot_enabled'),
-      "image" => get_option('ez_chatbot_image'),
-      "name" => get_option('ez_chatbot_name'),
-      "color" => get_option('ez_chatbot_color'),
-      "welcome" => get_option('ez_chatbot_welcome'),
-      "placeholder" => __('What can I help you with?', 'ez-chatbot')
-    ]);
     wp_enqueue_script_module('ez_chatbot');
+
+    add_filter('script_module_data_ez_chatbot', function($data) {
+      return [
+        "base_url" => home_url(),
+        "assets_url" => plugins_url('/dist', __FILE__),
+        "enabled" => get_option('ez_chatbot_enabled'),
+        "image" => get_option('ez_chatbot_image'),
+        "name" => get_option('ez_chatbot_name'),
+        "color" => get_option('ez_chatbot_color'),
+        "welcome" => get_option('ez_chatbot_welcome'),
+        "placeholder" => __('What can I help you with?', 'ez-chatbot')
+      ];
+    });
 
     // Styles
     wp_enqueue_style('ez_chatbot', plugins_url('/dist/assets/index.css', __FILE__), [], '1.0.0');
