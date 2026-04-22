@@ -393,7 +393,7 @@ class EZChatbot {
     });
 
     // Styles
-    wp_enqueue_style('ez_chatbot', plugins_url('/dist/assets/index.css', __FILE__), [], '1.0.0');
+    wp_enqueue_style('ez_chatbot', plugins_url('/dist/assets/index.css', __FILE__), [], '2.0.0');
   }
 
   public function register_rest_routes() {    
