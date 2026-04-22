@@ -10,6 +10,7 @@ import saveMessage from './helpers/saveMessage'
 
 function App() {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(open)
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -25,11 +26,14 @@ function App() {
   const [responding, setResponding] = useState(false)
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [userScroll, setUserScroll] = useState(false)
+  const [notification, setNotification] = useState(true)
   const historyContainer = useRef(null)
   const sendInput = useRef(null)
   const previousScrollTop = useRef(0)
 
   const handleOpen = () => {
+    setNotification(false)
+
     setOpen((isOpen) => {
       if (!isOpen) {
         sendInput.current.focus()
@@ -75,6 +79,8 @@ function App() {
       setUserData,
       chatbotSettings.base_url
     )
+
+    setNotification(!openRef.current)
   }
 
   const handleScroll = () => {
@@ -111,6 +117,10 @@ function App() {
       })
     }
   }, [messages, userScroll])
+
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
 
   return (
     <>
@@ -195,7 +205,10 @@ function App() {
             </footer>
           </div>
 
-          <div className="chatbot__widget-btn" onClick={() => handleOpen()}>
+          <div
+            className={`chatbot__widget-btn ${notification && chatbotSettings.notifications ? 'notification' : ''}`}
+            onClick={() => handleOpen()}
+          >
             <MessageSquare color="white" />
           </div>
         </div>

@@ -101,6 +101,7 @@ class EZChatbot {
       $checkboxes = [
         'ez_chatbot_enabled',
         'ez_chatbot_webhook',
+        'ez_chatbot_notifications',
       ];
 
       foreach ($checkboxes as $checkbox) {
@@ -143,6 +144,7 @@ class EZChatbot {
       'image',
       'name',
       'color',
+      'notifications',
       'webhook',
       'webhook_url',
       'webhook_headers',
@@ -151,10 +153,17 @@ class EZChatbot {
       'knowledge',
     ];
 
+    $defaults = [
+      'enabled'       => false,
+      'notifications' => true,
+      'webhook'       => false,
+    ];
+
     $settings = [];
 
     foreach ($options as $option) {
-      $settings[$option] = get_option('ez_chatbot_' . $option);
+      $default = $defaults[$option] ?? null;
+      $settings[$option] = get_option('ez_chatbot_' . $option, $default);
     }
 
     $settings['api_key'] = $this->get_api_key();
@@ -377,6 +386,7 @@ class EZChatbot {
         "image" => get_option('ez_chatbot_image'),
         "name" => get_option('ez_chatbot_name'),
         "color" => get_option('ez_chatbot_color'),
+        "notifications" => get_option('ez_chatbot_notifications'),
         "welcome" => get_option('ez_chatbot_welcome'),
         "placeholder" => __('What can I help you with?', 'ez-chatbot')
       ];

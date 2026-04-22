@@ -10,6 +10,7 @@ const chatbotSettings = {
   image: raw.image ?? '',
   name: raw.name ?? 'EZ Chatbot',
   color: raw.color ?? '#000',
+  notifications: raw.notifications ?? '',
   welcome: raw.welcome ?? '¡Hola! Soy un asistente virtual.',
   placeholder: raw.placeholder ?? '¿En qué te puedo ayudar?',
 }

@@ -1,5 +1,6 @@
 @use '@/base/reset'
 @use '@/base/fonts'
+@use '@/base/vars'
 
 #ez-chatbot-wrapper
   .chatbot__widget
@@ -12,7 +13,7 @@
     bottom: 20px
     font:
       size: 14px
-      family: "Figtree", sans-serif
+      family: var(--figtree)
     pointer-events: none
     z-index: 100
 
@@ -197,9 +198,45 @@
       pointer-events: all
       isolation: isolate
 
+      &.notification
+        &::before
+          animation: notification-on 0.2s 1s ease forwards
+          opacity: 1
+
+          @keyframes notification-on
+            0%
+              transform: translate(50%, -50%) scale(0)
+
+            100%
+              transform: translate(50%, -50%) scale(1)
+
       &:hover
         &::after
           transform: scale(1.1)
+
+      &::before
+        content: '1'
+        position: absolute
+        background-color: var(--red)
+        width: 18px
+        height: 18px
+        top: 5px
+        right: 5px
+        border-radius: 100%
+        color: white
+        font-weight: bold
+        text-align: center
+        transform: translate(50%, -50%) scale(0)
+        animation: notification-off 0.2s ease forwards
+        opacity: 0
+        z-index: 1
+
+        @keyframes notification-off
+          0%
+            transform: translate(50%, -50%) scale(1)
+
+          100%
+            transform: translate(50%, -50%) scale(0)
 
       &::after
         content: ''

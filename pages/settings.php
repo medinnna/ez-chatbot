@@ -58,6 +58,19 @@
               </fieldset>
 
               <fieldset>
+                <p><?= _e('Notification bubble', 'ez-chatbot'); ?></p>
+
+                <div class="input">
+                  <label class="ez-chatbot__switch" for="ez_chatbot_notifications">
+                    <div class="ez-chatbot__switch-toggle"></div>
+                  </label>
+                  
+                  <input type="hidden" name="ez_chatbot_notifications" value="0">
+                  <input type="checkbox" name="ez_chatbot_notifications" id="ez_chatbot_notifications" value="1" <?php echo ($settings['notifications'] ? 'checked' : ''); ?> />
+                </div>
+              </fieldset>
+
+              <fieldset>
                 <p><?php _e('Profile image', 'ez-chatbot'); ?></p>
 
                 <div class="input">

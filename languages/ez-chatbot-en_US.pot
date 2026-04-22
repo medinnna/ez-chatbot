@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-21T17:31:03+00:00\n"
+"POT-Creation-Date: 2026-04-22T15:44:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ez-chatbot\n"
@@ -56,40 +56,40 @@ msgstr ""
 msgid "Conversations"
 msgstr ""
 
-#: index.php:208
+#: index.php:210
 msgid "Chat Conversations"
 msgstr ""
 
-#: index.php:209
+#: index.php:211
 msgid "Chat Conversation"
 msgstr ""
 
-#: index.php:285
+#: index.php:287
 msgid "You do not have permission to download this conversation."
 msgstr ""
 
-#: index.php:294
+#: index.php:296
 #: pages/conversation.php:65
 msgid "Sender"
 msgstr ""
 
-#: index.php:295
+#: index.php:297
 #: pages/conversation.php:66
 msgid "Message"
 msgstr ""
 
-#: index.php:296
+#: index.php:298
 #: pages/conversation.php:67
 #: pages/conversations.php:128
 msgid "Date"
 msgstr ""
 
-#: index.php:337
+#: index.php:339
 msgid "You do not have permission to delete this conversation."
 msgstr ""
 
-#: index.php:378
-#: pages/settings.php:216
+#: index.php:383
+#: pages/settings.php:229
 msgid "What can I help you with?"
 msgstr ""
 
@@ -148,23 +148,23 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: pages/conversations.php:150
+#: pages/conversations.php:151
 msgid "View"
 msgstr ""
 
-#: pages/conversations.php:154
+#: pages/conversations.php:155
 msgid "Download"
 msgstr ""
 
-#: pages/conversations.php:158
+#: pages/conversations.php:159
 msgid "Are you sure you want to delete this conversation?"
 msgstr ""
 
-#: pages/conversations.php:158
+#: pages/conversations.php:159
 msgid "Delete"
 msgstr ""
 
-#: pages/conversations.php:168
+#: pages/conversations.php:170
 msgid "No conversations found"
 msgstr ""
 
@@ -174,55 +174,59 @@ msgid "Enable"
 msgstr ""
 
 #: pages/settings.php:61
+msgid "Notification bubble"
+msgstr ""
+
+#: pages/settings.php:74
 msgid "Profile image"
 msgstr ""
 
-#: pages/settings.php:65
+#: pages/settings.php:78
 msgid "Select image"
 msgstr ""
 
-#: pages/settings.php:65
+#: pages/settings.php:78
 msgid "Replace image"
 msgstr ""
 
-#: pages/settings.php:73
+#: pages/settings.php:86
 msgid "Profile name"
 msgstr ""
 
-#: pages/settings.php:83
+#: pages/settings.php:96
 msgid "Color"
 msgstr ""
 
-#: pages/settings.php:93
+#: pages/settings.php:106
 msgid "Welcome message"
 msgstr ""
 
-#: pages/settings.php:97
-#: pages/settings.php:200
+#: pages/settings.php:110
+#: pages/settings.php:213
 msgid "Hi! I'm your virtual assistant. What can I help you with?"
 msgstr ""
 
-#: pages/settings.php:103
+#: pages/settings.php:116
 msgid "Knowledge"
 msgstr ""
 
-#: pages/settings.php:113
+#: pages/settings.php:126
 msgctxt "activation"
 msgid "Enable"
 msgstr ""
 
-#: pages/settings.php:128
+#: pages/settings.php:141
 msgid "Webhook URL"
 msgstr ""
 
-#: pages/settings.php:138
+#: pages/settings.php:151
 msgid "Headers"
 msgstr ""
 
-#: pages/settings.php:148
+#: pages/settings.php:161
 msgid "Open AI API Key"
 msgstr ""
 
-#: pages/settings.php:162
+#: pages/settings.php:175
 msgid "System prompt"
 msgstr ""
