@@ -176,7 +176,7 @@
                 </p>
 
                 <div class="input">
-                  <textarea rows="5" name="ez_chatbot_system"><?php echo esc_textarea(!empty($settings['system']) ? $settings['system'] : $settings['system_default']); ?></textarea>
+                  <textarea rows="15" name="ez_chatbot_system"><?php echo esc_textarea(!empty($settings['system']) ? $settings['system'] : $settings['system_default']); ?></textarea>
                 </div>
               </fieldset>
             <?php endif; ?>
