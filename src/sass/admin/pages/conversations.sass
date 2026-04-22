@@ -79,25 +79,25 @@
             justify-content: space-between
             padding: 30px 20px
             border-radius: 15px
-            border: solid 1px #e6e6e6
+            border: solid 1px var(--gray)
 
             &.down
-              background: linear-gradient(-15deg, rgba(#ec9797, 50%), transparent)
+              background: linear-gradient(-15deg, color-mix(in srgb, var(--red) 20%, transparent), transparent)
 
               .icon
-                color: red
+                color: var(--red)
 
               p.percentage
-                color: red
+                color: var(--red)
 
             &.up
-              background: linear-gradient(-15deg, rgba(#9fec97, 50%), transparent)
+              background: linear-gradient(-15deg, color-mix(in srgb, var(--green) 20%, transparent), transparent)
 
               .icon
-                color: green
+                color: var(--green)
 
               p.percentage
-                color: green
+                color: var(--green)
             
             &.total
               background: black
@@ -122,7 +122,7 @@
         .ez-chatbot__admin-conversations
           td:has(> .ez-chatbot__conversation-actions)
             width: 1%
-            
+
           .ez-chatbot__conversation-actions
             display: flex
             gap: 20px
@@ -131,7 +131,7 @@
               color: black
 
               &:last-child
-                color: red
+                color: var(--red)
 
               svg
                 width: 20px
