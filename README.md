@@ -1,15 +1,22 @@
 # EZ Chatbot
 
-Custom chatbot for your website using the OpenAI API.
+WordPress plugin that integrates a personalized AI chatbot into your website.
 
 ![EZ Chatbot](./banner.png)
 
 ## Features
 
-- Custom chatbot with your own knowledge base.
-- Customizable appearance.
-- Save user conversations on your Wordpress database.
-- Download conversations as CSV file.
+- 🤖 **Custom AI Chatbot:** Powered by your own knowledge base to deliver smart, tailored replies.
+- 🎨 **Customizable UI:** Style it your way with live preview.
+- 💾 **Conversation Storage:** Saves chats directly to your WordPress database.
+- 📥 **CSV Export:** Download conversations anytime.
+- 🔍 **Search:** Quickly find chats by name or email.
+- 📊 **Analytics:** Total, monthly and weekly stats with trend insights.
+- 🔗 **Webhooks:** Connect with your favorite external services.
+
+<br>
+
+![EZ Chatbot Dashboard](./screenshot.png)
 
 ## Installation
 
